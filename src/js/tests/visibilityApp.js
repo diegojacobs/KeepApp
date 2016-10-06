@@ -30,7 +30,6 @@ const testAddTodo = () => {
 }
 
 const testToggleTodo = () => {
-  const date = new Date();
   const stateBefore = [
     {
       id: 0,
@@ -39,7 +38,7 @@ const testToggleTodo = () => {
     },
     {
       id: 1,
-      text: 'Banarme',
+      text: 'Limpiar',
       completed: false
     }
   ];
@@ -47,8 +46,7 @@ const testToggleTodo = () => {
   const action = {
     type: 'TOGGLE_TODO',
     payload: {
-      id: 1,
-      modification_date: date
+      id: 1
     }
   }
 
@@ -60,9 +58,8 @@ const testToggleTodo = () => {
     },
     {
       id: 1,
-      text: 'Banarme',
-      completed: true,
-      modification_date: date
+      text: 'Limpiar',
+      completed: true
     }
   ];
 
@@ -75,7 +72,6 @@ const testToggleTodo = () => {
 }
 
 const testSaveTodo = () => {
-  const date = new Date();
   const stateBefore = [
     {
       id: 0,
@@ -84,7 +80,7 @@ const testSaveTodo = () => {
     },
     {
       id: 1,
-      text: 'Banarme',
+      text: 'Limpiar',
       saved: false
     }
   ];
@@ -92,8 +88,7 @@ const testSaveTodo = () => {
   const action = {
     type: 'SAVE_TODO',
     payload: {
-      id: 1,
-      modification_date: date
+      id: 1
     }
   }
 
@@ -105,9 +100,8 @@ const testSaveTodo = () => {
     },
     {
       id: 1,
-      text: 'Banarme',
-      saved: true,
-      modification_date: date
+      text: 'Limpiar',
+      saved: true
     }
   ];
 
@@ -121,7 +115,6 @@ const testSaveTodo = () => {
 }
 
 const testEditTodo = () => {
-  const date = new Date();
   const stateBefore = [
     {
       id: 0,
@@ -130,7 +123,7 @@ const testEditTodo = () => {
     },
     {
       id: 1,
-      text: 'Banarme',
+      text: 'Limpiar',
       completed: false
     }
   ];
@@ -139,8 +132,7 @@ const testEditTodo = () => {
     type: 'EDIT_TODO',
     payload: {
       id: 1,
-      text: 'EDITED',
-      modification_date: date
+      text: 'EDITED'
     }
   }
 
@@ -153,8 +145,7 @@ const testEditTodo = () => {
     {
       id: 1,
       text: 'EDITED',
-      completed: false,
-      modification_date: date
+      completed: false
     }
   ];
 
@@ -167,7 +158,6 @@ const testEditTodo = () => {
 }
 
 const testArchiveTodo = () => {
-  const date = new Date();
   const stateBefore = [
     {
       id: 0,
@@ -176,7 +166,7 @@ const testArchiveTodo = () => {
     },
     {
       id: 1,
-      text: 'Banarme',
+      text: 'Limpiar',
       archived: false
     }
   ];
@@ -184,8 +174,7 @@ const testArchiveTodo = () => {
   const action = {
     type: 'ARCHIVE_TODO',
     payload: {
-      id: 1,
-      modification_date: new Date()
+      id: 1
     }
   }
 
@@ -197,9 +186,8 @@ const testArchiveTodo = () => {
     },
     {
       id: 1,
-      text: 'Banarme',
-      archived: true,
-      modification_date: date
+      text: 'Limpiar',
+      archived: true
     }
   ];
 
@@ -220,7 +208,7 @@ const testDeleteTodo = () => {
     },
     {
       id: 1,
-      text: 'Banarme',
+      text: 'Limpiar',
       completed: false
     }
   ];

@@ -1,4 +1,4 @@
-import { visibilityFilter } from './visibility';
+import { visibilityFilter } from './visibilityFilter';
 import { colors } from './colors';
 const listTodo = (state = {}, action ) => {
   switch(action.type) {
@@ -52,8 +52,7 @@ const listTodo = (state = {}, action ) => {
   }
 }
 
-//array version
-const listTodos = (state = [], action) => {
+const todosList = (state = [], action) => {
   switch (action.type) {
     case 'ADD_LIST_TODO':
       return [
@@ -77,4 +76,4 @@ const listTodos = (state = [], action) => {
   }
 }
 
-export { listTodos };
+export { todosList };

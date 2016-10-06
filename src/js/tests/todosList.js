@@ -1,4 +1,4 @@
-import { listTodos } from '../reducers/listTodos';
+import { todosList } from '../reducers/todosList';
 import deepFreeze from 'deep-freeze';
 import expect from 'expect';
 
@@ -26,7 +26,7 @@ const testAddListTodo = () => {
   deepFreeze(action);
 
   expect(
-    listTodos(stateBefore, action)
+    todosList(stateBefore, action)
   ).toEqual(stateAfter);
 }
 
@@ -75,7 +75,7 @@ const testEditListTodo = () => {
   deepFreeze(action);
 
   expect(
-    listTodos(stateBefore, action)
+    todosList(stateBefore, action)
   ).toEqual(stateAfter);
 }
 const testChangeColorListTodo = () => {
@@ -124,7 +124,7 @@ const testChangeColorListTodo = () => {
   deepFreeze(action);
 
   expect(
-    listTodos(stateBefore, action)
+    todosList(stateBefore, action)
   ).toEqual(stateAfter);
 }
 const testArchiveListTodo = () => {
@@ -171,7 +171,7 @@ const testArchiveListTodo = () => {
   deepFreeze(action);
 
   expect(
-    listTodos(stateBefore, action)
+    todosList(stateBefore, action)
   ).toEqual(stateAfter);
 }
 
@@ -217,7 +217,7 @@ const testShowColor = () => {
   deepFreeze(action);
 
   expect(
-    listTodos(stateBefore, action)
+    todosList(stateBefore, action)
   ).toEqual(stateAfter);
 }
 
@@ -265,7 +265,7 @@ const testVisibilityFilter = () => {
   deepFreeze(action);
 
   expect(
-    listTodos(stateBefore, action)
+    todosList(stateBefore, action)
   ).toEqual(stateAfter);
 }
 

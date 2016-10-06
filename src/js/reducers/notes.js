@@ -1,4 +1,4 @@
-import { visibilityFilter } from './visibility';
+import { visibilityFilter } from './visibilityFilter';
 import { colors } from './colors';
 //single version
 const note = (state = {}, action ) => {
@@ -54,8 +54,7 @@ const note = (state = {}, action ) => {
   }
 }
 
-//array version
-const listNotes = (state = [], action) => {
+const notes = (state = [], action) => {
   switch (action.type) {
     case 'ADD_NOTE':
       return [
@@ -81,4 +80,4 @@ const listNotes = (state = [], action) => {
   }
 }
 
-export { listNotes };
+export { notes };

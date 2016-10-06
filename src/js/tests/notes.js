@@ -1,4 +1,4 @@
-import { listNotes } from '../reducers/notes';
+import { notes } from '../reducers/notes';
 import deepFreeze from 'deep-freeze';
 import expect from 'expect';
 
@@ -10,7 +10,7 @@ const testAddNote = () => {
     payload: {
       id: 0,
       title: 'Limpiar mi casa',
-      content: 'Lavaplatos',
+      content: 'Limpiar mi cuarto',
       creation_date: date
     }
   }
@@ -18,7 +18,7 @@ const testAddNote = () => {
   const stateAfter = [{
     id: 0,
     title: 'Limpiar mi casa',
-    content: 'Lavaplatos',
+    content: 'Limpiar mi cuarto',
     saved: false,
     archived: false,
     show_color: false,
@@ -29,7 +29,7 @@ const testAddNote = () => {
   deepFreeze(action);
 
   expect(
-    listNotes(stateBefore, action)
+    notes(stateBefore, action)
   ).toEqual(stateAfter);
 }
 const testEditNoteTitle = () => {
@@ -37,15 +37,15 @@ const testEditNoteTitle = () => {
   const stateBefore = [{
     id: 0,
     title: 'Limpiar mi casa',
-    content: 'Lavaplatos',
+    content: 'Limpiar mi cuarto',
     saved: false,
     archived: false,
     show_color: false,
     creation_date: date
   },{
     id: 1,
-    title: 'Estudiar compis',
-    content: 'saque 100',
+    title: 'Terminar proyecto',
+    content: 'Google Keep',
     saved: false,
     archived: false,
     show_color: false,
@@ -63,7 +63,7 @@ const testEditNoteTitle = () => {
   const stateAfter = [{
     id: 0,
     title: 'Limpiar mi casa',
-    content: 'Lavaplatos',
+    content: 'Limpiar mi cuarto',
     saved: false,
     archived: false,
     show_color: false,
@@ -71,7 +71,7 @@ const testEditNoteTitle = () => {
   },{
     id: 1,
     title: 'Estudiar sistos',
-    content: 'saque 100',
+    content: 'Google Keep',
     saved: false,
     archived: false,
     show_color: false,
@@ -83,7 +83,7 @@ const testEditNoteTitle = () => {
   deepFreeze(action);
 
   expect(
-    listNotes(stateBefore, action)
+    notes(stateBefore, action)
   ).toEqual(stateAfter);
 }
 const testEditContentNote = () => {
@@ -91,15 +91,15 @@ const testEditContentNote = () => {
   const stateBefore = [{
     id: 0,
     title: 'Limpiar mi casa',
-    content: 'Lavaplatos',
+    content: 'Limpiar mi cuarto',
     saved: false,
     archived: false,
     show_color: false,
     creation_date: date
   },{
     id: 1,
-    title: 'Estudiar compis',
-    content: 'saque 100',
+    title: 'Terminar proyecto',
+    content: 'Google Keep',
     saved: false,
     archived: false,
     show_color: false,
@@ -117,14 +117,14 @@ const testEditContentNote = () => {
   const stateAfter = [{
     id: 0,
     title: 'Limpiar mi casa',
-    content: 'Lavaplatos',
+    content: 'Limpiar mi cuarto',
     saved: false,
     archived: false,
     show_color: false,
     creation_date: date
   },{
     id: 1,
-    title: 'Estudiar compis',
+    title: 'Terminar proyecto',
     content: 'Saque 0',
     saved: false,
     archived: false,
@@ -137,7 +137,7 @@ const testEditContentNote = () => {
   deepFreeze(action);
 
   expect(
-    listNotes(stateBefore, action)
+    notes(stateBefore, action)
   ).toEqual(stateAfter);
 }
 
@@ -146,15 +146,15 @@ const testChangeColorNote = () => {
   const stateBefore = [{
     id: 0,
     title: 'Limpiar mi casa',
-    content: 'Lavaplatos',
+    content: 'Limpiar mi cuarto',
     saved: false,
     archived: false,
     show_color: false,
     creation_date: date
   },{
     id: 1,
-    title: 'Estudiar compis',
-    content: 'saque 100',
+    title: 'Terminar proyecto',
+    content: 'Google Keep',
     saved: false,
     archived: false,
     show_color: false,
@@ -172,15 +172,15 @@ const testChangeColorNote = () => {
   const stateAfter = [{
     id: 0,
     title: 'Limpiar mi casa',
-    content: 'Lavaplatos',
+    content: 'Limpiar mi cuarto',
     saved: false,
     archived: false,
     show_color: false,
     creation_date: date
   },{
     id: 1,
-    title: 'Estudiar compis',
-    content: 'saque 100',
+    title: 'Terminar proyecto',
+    content: 'Google Keep',
     saved: false,
     archived: false,
     show_color: false,
@@ -193,7 +193,7 @@ const testChangeColorNote = () => {
   deepFreeze(action);
 
   expect(
-    listNotes(stateBefore, action)
+    notes(stateBefore, action)
   ).toEqual(stateAfter);
 }
 const testArchiveNote = () => {
@@ -201,15 +201,15 @@ const testArchiveNote = () => {
   const stateBefore = [{
     id: 0,
     title: 'Limpiar mi casa',
-    content: 'Lavaplatos',
+    content: 'Limpiar mi cuarto',
     saved: false,
     archived: false,
     show_color: false,
     creation_date: date
   },{
     id: 1,
-    title: 'Estudiar compis',
-    content: 'saque 100',
+    title: 'Terminar proyecto',
+    content: 'Google Keep',
     saved: false,
     archived: false,
     show_color: false,
@@ -227,15 +227,15 @@ const testArchiveNote = () => {
   const stateAfter = [{
     id: 0,
     title: 'Limpiar mi casa',
-    content: 'Lavaplatos',
+    content: 'Limpiar mi cuarto',
     saved: false,
     archived: false,
     show_color: false,
     creation_date: date
   },{
     id: 1,
-    title: 'Estudiar compis',
-    content: 'saque 100',
+    title: 'Terminar proyecto',
+    content: 'Google Keep',
     saved: false,
     archived: true,
     show_color: false,
@@ -247,7 +247,7 @@ const testArchiveNote = () => {
   deepFreeze(action);
 
   expect(
-    listNotes(stateBefore, action)
+    notes(stateBefore, action)
   ).toEqual(stateAfter);
 }
 const testShowColorNote = () => {
@@ -255,15 +255,15 @@ const testShowColorNote = () => {
   const stateBefore = [{
     id: 0,
     title: 'Limpiar mi casa',
-    content: 'Lavaplatos',
+    content: 'Limpiar mi cuarto',
     saved: false,
     archived: false,
     show_color: false,
     creation_date: date
   },{
     id: 1,
-    title: 'Estudiar compis',
-    content: 'saque 100',
+    title: 'Terminar proyecto',
+    content: 'Google Keep',
     saved: false,
     archived: false,
     show_color: false,
@@ -279,15 +279,15 @@ const testShowColorNote = () => {
   const stateAfter = [{
     id: 0,
     title: 'Limpiar mi casa',
-    content: 'Lavaplatos',
+    content: 'Limpiar mi cuarto',
     saved: false,
     archived: false,
     show_color: false,
     creation_date: date
   },{
     id: 1,
-    title: 'Estudiar compis',
-    content: 'saque 100',
+    title: 'Terminar proyecto',
+    content: 'Google Keep',
     saved: false,
     archived: false,
     show_color: true,
@@ -298,7 +298,7 @@ const testShowColorNote = () => {
   deepFreeze(action);
 
   expect(
-    listNotes(stateBefore, action)
+    notes(stateBefore, action)
   ).toEqual(stateAfter);
 }
 const testDeleteNote = () => {
@@ -306,15 +306,15 @@ const testDeleteNote = () => {
   const stateBefore = [{
     id: 0,
     title: 'Limpiar mi casa',
-    content: 'Lavaplatos',
+    content: 'Limpiar mi cuarto',
     saved: false,
     archived: false,
     show_color: false,
     creation_date: date
   },{
     id: 1,
-    title: 'Estudiar compis',
-    content: 'saque 100',
+    title: 'Terminar proyecto',
+    content: 'Google Keep',
     saved: false,
     archived: false,
     show_color: false,
@@ -330,7 +330,7 @@ const testDeleteNote = () => {
   const stateAfter = [{
     id: 0,
     title: 'Limpiar mi casa',
-    content: 'Lavaplatos',
+    content: 'Limpiar mi cuarto',
     saved: false,
     archived: false,
     show_color: false,
@@ -341,7 +341,7 @@ const testDeleteNote = () => {
   deepFreeze(action);
 
   expect(
-    listNotes(stateBefore, action)
+    notes(stateBefore, action)
   ).toEqual(stateAfter);
 }
 

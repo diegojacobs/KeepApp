@@ -1,15 +1,15 @@
+$blue:  #4285f4;
+$color-blue-container: #B7E5FF;
+$color-green-container: #BBFF91;
+$color-red-container: #CC6A6E;
+$color-yellow-container: #FFFD9E;
 $dark-blue: #533687 ;
-$ligth-grey: #F2F2F2;
+$darker-red: #c0392b;
+$green: #0f9d58;
+$main-size: 500px;
 $offset-circle: 100px;
 $orange: #e67e22;
-$green: #0f9d58;
 $red: #e74c3c;
-$darker-red: #c0392b;
-$blue:  #4285f4;
-$circle-blue: #B7E5FF;
-$circle-red: #CC6A6E;
-$circle-yellow: #FFFD9E;
-$circle-green: #BBFF91;
 
 body {
   font-size: 15px;
@@ -32,8 +32,8 @@ body {
     width: 38%;
   }
   &.green {
-    color: white;
     background-color: $green;
+    color: white;
     &:hover {
       background-color: #0FB458;
     }
@@ -41,81 +41,82 @@ body {
   &.done {
     float: right;
   }
-
-  &.red {
-    color: white;
-    background-color: $red;
-    &:hover {
-      background-color: $darker-red;
-    }
-  }
   &.blue {
-    color: white;
     background-color: $blue;
+    color: white;
     &:hover {
       background-color: darken($blue, 20%);
     }
   }
+  &.red {
+    background-color: $red;
+    color: white;
+    &:hover {
+      background-color: $darker-red;
+    }
+  }
+
 }
 
-.circle-container {
+.color-container {
+  background: grey;
   position: relative;
   padding: 5px;
 }
 
-.circle-green {
-  background-color: $circle-green;
+.color-green-container {
+  background-color: $color-green-container;
   cursor: pointer;
   display: inline-block;
   height: 20px;
+  margin: 10px;
   position: absolute;
+  right: $offset-circle - 20px;
   text-align: center;
   width: 20px;
   z-index: 100;
-  right: $offset-circle - 20px;
-  margin: 10px;
 }
 
 $offset-circle: $offset-circle - 20px;
-.circle-blue {
-  background-color: $circle-blue;
+.color-blue-container {
+  background-color: $color-blue-container;
   cursor: pointer;
   display: inline-block;
   height: 20px;
+  margin: 10px;
   position: absolute;
+  right: $offset-circle - 20px;
   text-align: center;
   width: 20px;
   z-index: 100;
-  right: $offset-circle - 20px;
-  margin: 10px;
 }
 
 $offset-circle: $offset-circle - 20px;
-.circle-red {
-  background-color: $circle-red;
+.color-red-container {
+  background-color: $color-red-container;
   cursor: pointer;
   display: inline-block;
   height: 20px;
+  margin: 10px;
   position: absolute;
+  right: $offset-circle - 20px;
   text-align: center;
   width: 20px;
   z-index: 100;
-  right: $offset-circle - 20px;
-  margin: 10px;
 }
 
 $offset-circle: $offset-circle - 20px;
-.circle-yellow {
-  background-color: $circle-yellow;
+.color-yellow-container {
+  background-color: $color-yellow-container;
   cursor: pointer;
   display: inline-block;
   height: 20px;
+  margin: 10px;
   position: absolute;
+  right: $offset-circle - 20px;
   text-align: center;
   width: 20px;
   z-index: 100;
-  right: $offset-circle - 20px;
-  margin: 10px;
 }
 
 .cursor {
@@ -128,12 +129,19 @@ $offset-circle: $offset-circle - 20px;
   padding-left: 10px;
 }
 
-.list-container {
-  width: 500px;
-  padding: 20px;
+.add-container {
+  background: #E3DDFF;
   display: inline-block;
   margin: 10px;
-  background: #E3DDFF;
+  padding: 20px;
+  width: 500px;
+}
+
+.note-todoList-container {
+  display: inline-block;
+  margin: 10px;
+  padding: 20px;
+  width: $main-size;
 }
 
 .list-input {
@@ -148,8 +156,8 @@ $offset-circle: $offset-circle - 20px;
 }
 
 .main-container {
-  text-align: -webkit-center;
   display: inline-block;
+  text-align: -webkit-center;
 }
 
 .main-div {
@@ -169,19 +177,19 @@ $offset-circle: $offset-circle - 20px;
 }
 
 .main-input {
+  background: transparent;
   border: none;
   font-size: 18px;
   height: 40px;
   width: 360px;
-  background: transparent;
 }
 
 .title-input {
+  background: transparent;
   border: none;
   font-size: 18px;
   height: 40px;
   width: 460px;
-  background: transparent;
 }
 
 .todo-completed {
@@ -191,14 +199,6 @@ $offset-circle: $offset-circle - 20px;
 .padding-right {
   padding-right: 10px;
 }
-
-.margin-top {
-}
-
-.margin-none {
-  margin-top: none;
-}
-
 
   
 
