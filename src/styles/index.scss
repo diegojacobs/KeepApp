@@ -3,25 +3,23 @@ $color-blue-container: #B7E5FF;
 $color-green-container: #BBFF91;
 $color-red-container: #CC6A6E;
 $color-yellow-container: #FFFD9E;
-$dark-blue: #533687 ;
 $darker-red: #c0392b;
 $green: #0f9d58;
 $main-size: 500px;
 $offset-circle: 100px;
-$orange: #e67e22;
 $red: #e74c3c;
 
 body {
   font-size: 15px;
 }
 
-
 .btn {
   border-radius: 2px;
   border-width: 0;
   box-shadow: 0 1px 4px rgba(0, 0, 0, .6);
-  color: #ecf0f1;
+  color: #fff;
   display: inline-block;
+  margin: 10px;
   outline: none;
   overflow: hidden;
   padding-bottom: 5px;
@@ -200,7 +198,7 @@ $offset-circle: $offset-circle - 20px;
 }
 
 .margin-top{
-  margin-top: 20px;
+  margin-top: 40px;
 }
   
 
