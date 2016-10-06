@@ -1,45 +1,70 @@
-import undoable, { distinctState } from 'redux-undo'
-
-const todo = (state, action) => {
-  switch (action.type) {
+const todo = (state = {}, action) => {
+  switch(action.type) {
     case 'ADD_TODO':
       return {
-        id: action.id,
-        text: action.text,
-        completed: false
-      }
+        ...action.payload,
+        completed: false,
+        saved: false,
+        archived: false
+      };
     case 'TOGGLE_TODO':
-      if (state.id !== action.id) {
-        return state
+      if(state.id === action.payload.id){
+        return {
+          ...state,
+          completed: !state.completed,
+          modification_date: action.payload.modification_date
+        };
       }
-
-      return {
-        ...state,
-        completed: !state.completed
+    case 'SAVE_TODO':
+      if (state.id === action.payload.id) {
+        return {
+          ...state,
+          saved: true,
+          modification_date: action.payload.modification_date
+        }
+      }
+    case 'EDIT_TODO':
+      if (state.id === action.payload.id){
+        console.log(action.payload.text)
+        return {
+          ...state,
+          text: action.payload.text,
+          modification_date: action.payload.modification_date
+        }
+      }
+    case 'ARCHIVE_TODO':
+      if (state.id === action.payload.id) {
+        return {
+          ...state,
+          archived: true,
+          modification_date: action.payload.modification_date
+        }
       }
     default:
-      return state
+      return state;
   }
 }
 
 const todos = (state = [], action) => {
-  switch (action.type) {
+  switch (action.type){
     case 'ADD_TODO':
       return [
         ...state,
         todo(undefined, action)
-      ]
+      ];
     case 'TOGGLE_TODO':
-      return state.map(t =>
-        todo(t, action)
-      )
+      return state.map(t => todo(t, action));
+    case 'SAVE_TODO':
+      return state.map(t => todo(t, action));
+    case 'EDIT_TODO':
+      return state.map(t => todo(t, action));
+    case 'DELETE_TODO':
+      return state.filter(t => t.id !== action.payload.id);
+    case 'ARCHIVE_TODO':
+      return state.map(t => todo(t,action));
     default:
-      return state
+      return state;
   }
 }
 
-const undoableTodos = undoable(todos, {
-  filter: distinctState()
-})
-
-export default undoableTodos
+export { todos };

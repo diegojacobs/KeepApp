@@ -1,12 +1,14 @@
 import { combineReducers } from 'redux'
-import todos from './todos'
-import notes from './notes'
-import visibilityFilter from './visibilityFilter'
+import { todos } from './todos';
+import { listTodos } from './listTodos';
+import { listNotes } from './notes';
+import { visibilityApp } from './visibilityApp';
 
 const todoApp = combineReducers({
-  notes,
   todos,
-  visibilityFilter
-})
+  listTodos,
+  listNotes,
+  visibilityApp
+});
 
 export default todoApp

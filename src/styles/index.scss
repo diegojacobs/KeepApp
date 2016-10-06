@@ -1,18 +1,205 @@
-#Red{
-  background: red;
-}
-#Blue{
-  background: blue;
+$dark-blue: #533687 ;
+$ligth-grey: #F2F2F2;
+$offset-circle: 100px;
+$orange: #e67e22;
+$green: #0f9d58;
+$red: #e74c3c;
+$darker-red: #c0392b;
+$blue:  #4285f4;
+$circle-blue: #B7E5FF;
+$circle-red: #CC6A6E;
+$circle-yellow: #FFFD9E;
+$circle-green: #BBFF91;
+
+body {
+  font-size: 15px;
 }
 
-#Green{
-  background: green;
+
+.btn {
+  border-radius: 2px;
+  border-width: 0;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .6);
+  color: #ecf0f1;
+  display: inline-block;
+  outline: none;
+  overflow: hidden;
+  padding-bottom: 5px;
+  padding-top: 5px;
+  position: relative;
+  transition: background-color .3s;
+  &.size {
+    width: 38%;
+  }
+  &.green {
+    color: white;
+    background-color: $green;
+    &:hover {
+      background-color: #0FB458;
+    }
+  }
+  &.done {
+    float: right;
+  }
+
+  &.red {
+    color: white;
+    background-color: $red;
+    &:hover {
+      background-color: $darker-red;
+    }
+  }
+  &.blue {
+    color: white;
+    background-color: $blue;
+    &:hover {
+      background-color: darken($blue, 20%);
+    }
+  }
 }
 
-#Yellow{
-  background: yellow;
+.circle-container {
+  position: relative;
+  padding: 5px;
 }
 
-#White{
-  background: white;
+.circle-green {
+  background-color: $circle-green;
+  cursor: pointer;
+  display: inline-block;
+  height: 20px;
+  position: absolute;
+  text-align: center;
+  width: 20px;
+  z-index: 100;
+  right: $offset-circle - 20px;
+  margin: 10px;
 }
+
+$offset-circle: $offset-circle - 20px;
+.circle-blue {
+  background-color: $circle-blue;
+  cursor: pointer;
+  display: inline-block;
+  height: 20px;
+  position: absolute;
+  text-align: center;
+  width: 20px;
+  z-index: 100;
+  right: $offset-circle - 20px;
+  margin: 10px;
+}
+
+$offset-circle: $offset-circle - 20px;
+.circle-red {
+  background-color: $circle-red;
+  cursor: pointer;
+  display: inline-block;
+  height: 20px;
+  position: absolute;
+  text-align: center;
+  width: 20px;
+  z-index: 100;
+  right: $offset-circle - 20px;
+  margin: 10px;
+}
+
+$offset-circle: $offset-circle - 20px;
+.circle-yellow {
+  background-color: $circle-yellow;
+  cursor: pointer;
+  display: inline-block;
+  height: 20px;
+  position: absolute;
+  text-align: center;
+  width: 20px;
+  z-index: 100;
+  right: $offset-circle - 20px;
+  margin: 10px;
+}
+
+.cursor {
+  cursor: pointer;
+  padding-left: 10px;
+}
+.cursor-edit {
+  cursor: pointer;
+  float: right;
+  padding-left: 10px;
+}
+
+.list-container {
+  width: 500px;
+  padding: 20px;
+  display: inline-block;
+  margin: 10px;
+  background: #E3DDFF;
+}
+
+.list-input {
+  border: none;
+  font-size: 18px;
+  height: 30px;
+  width: 380px;
+}
+
+.hide-element {
+  display: none;
+}
+
+.main-container {
+  text-align: -webkit-center;
+  display: inline-block;
+}
+
+.main-div {
+  border: none;
+  font-size: 18px;
+  height: 40px;
+  text-align: left;
+  width: 460px;
+}
+.edit-div {
+  border: none;
+  font-size: 18px;
+  padding-top: 3px;
+  padding-right: 10px;
+  text-align: left;
+  width: 460px;
+}
+
+.main-input {
+  border: none;
+  font-size: 18px;
+  height: 40px;
+  width: 360px;
+  background: transparent;
+}
+
+.title-input {
+  border: none;
+  font-size: 18px;
+  height: 40px;
+  width: 460px;
+  background: transparent;
+}
+
+.todo-completed {
+  text-decoration: line-through;
+}
+
+.padding-right {
+  padding-right: 10px;
+}
+
+.margin-top {
+}
+
+.margin-none {
+  margin-top: none;
+}
+
+
+  
+
+  

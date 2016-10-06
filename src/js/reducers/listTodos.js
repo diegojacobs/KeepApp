@@ -1,32 +1,23 @@
 import { visibilityFilter } from './visibility';
 import { colors } from './colors';
-//single version
-const note = (state = {}, action ) => {
+const listTodo = (state = {}, action ) => {
   switch(action.type) {
-    case 'ADD_NOTE':
+    case 'ADD_LIST_TODO':
       return {
         ...action.payload,
-        saved: false,
         archived: false,
         show_color: false
-      };
-    case 'EDIT_NOTE_TITLE':
+      };    
+    case 'EDIT_LIST_TODO':
       if (state.id === action.payload.id) {
+
         return {
           ...state,
           title: action.payload.title,
           modification_date: action.payload.modification_date
         }
       }
-    case 'EDIT_NOTE_CONTENT':
-      if (state.id === action.payload.id) {
-        return {
-          ...state,
-          content: action.payload.content,
-          modification_date: action.payload.modification_date
-        }
-      }
-     case 'CHANGE_COLOR_NOTE':
+    case 'CHANGE_COLOR_LIST_TODO':
       if (state.id === action.payload.id) {
         return {
           ...state,
@@ -34,7 +25,7 @@ const note = (state = {}, action ) => {
           modification_date: action.payload.modification_date
         }
       }
-     case 'ARCHIVE_NOTE':
+    case 'ARCHIVE_LIST_TODO':
       if (state.id === action.payload.id) {
         return {
           ...state,
@@ -42,43 +33,48 @@ const note = (state = {}, action ) => {
           modification_date: action.payload.modification_date
         }
       }
-    case 'SHOW_COLOR_NOTE':
+    case 'SHOW_COLORS':
       if (state.id === action.payload.id) {
         return {
           ...state,
-          show_color: colors(state.show_color,action)
+          show_color: colors(state.show_color, action)
         }
       }
+    case 'SET_VISIBILITY_FILTER':
+    if (state.id === action.payload.idList) {
+      return {
+        ...state,
+        visibilityFilter: visibilityFilter(state.visibilityFilter, action)
+      }
+    }
     default:
       return state;
   }
 }
 
 //array version
-const listNotes = (state = [], action) => {
+const listTodos = (state = [], action) => {
   switch (action.type) {
-    case 'ADD_NOTE':
+    case 'ADD_LIST_TODO':
       return [
         ...state,
-        note(undefined, action)
+        listTodo(undefined, action)
       ];
-    case 'EDIT_NOTE_TITLE':
-      return state.map(l => note(l, action));
-    case 'EDIT_NOTE_CONTENT':
-      return state.map(l => note(l, action));
-    case 'CHANGE_COLOR_NOTE':
-      return state.map(l => note(l, action));
-    case 'SHOW_COLOR_NOTE':
-      return state.map(l => note(l, action));
-    case 'DELETE_NOTE':
+    case 'EDIT_LIST_TODO':
+      return state.map(l => listTodo(l, action));
+    case 'CHANGE_COLOR_LIST_TODO':
+      return state.map(l => listTodo(l, action));
+    case 'SHOW_COLORS':
+      return state.map(l => listTodo(l, action));
+    case 'DELETE_LIST_TODO':
       return state.filter(l => l.id !== action.payload.id);
-    case 'ARCHIVE_NOTE':
-      return state.map(l => note(l, action));
-    case 'SET_VISIBILITY_FILTER_NOTE':
-      return state.map(t => note(t, action));
+    case 'ARCHIVE_LIST_TODO':
+      return state.map(l => listTodo(l, action));
+    case 'SET_VISIBILITY_FILTER':
+      return state.map(t => listTodo(t, action));
     default:
       return state;
   }
 }
 
-export { listNotes };
+export { listTodos };
