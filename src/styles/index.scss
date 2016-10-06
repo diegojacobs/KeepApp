@@ -59,7 +59,6 @@ body {
 }
 
 .color-container {
-  background: grey;
   position: relative;
   padding: 5px;
 }
@@ -200,6 +199,9 @@ $offset-circle: $offset-circle - 20px;
   padding-right: 10px;
 }
 
+.margin-top{
+  margin-top: 20px;
+}
   
 
   

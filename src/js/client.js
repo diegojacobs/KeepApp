@@ -388,38 +388,40 @@ class VisibleTodoList extends Component {
                     }
                   }
                 ></i>
-                <div class = { 'color-container' }>
-                 <ColorContainer
+                <div>
+                  <div style={{float: "right", width: "24%"}} class = { 'color-container' }>
+                   <ColorContainer
                    listTodo = { list }
-                 >
-                 </ColorContainer>
-                 </div>
-                <button
-                  class={ 'btn blue size' }
-                  onClick={
-                    () => { 
-                      store.dispatch({
-                        type: 'ARCHIVE_LIST_TODO',
-                        payload: {
-                          id: list.id,
-                          modification_date: new Date()
+                   >
+                   </ColorContainer>
+                  </div>
+                  <div style={{backgroundColor: list.color, float: "left", width: "75%"}}>
+                    <button
+                      class={ 'btn blue size' }
+                      onClick={
+                        () => { 
+                          store.dispatch({
+                            type: 'ARCHIVE_LIST_TODO',
+                            payload: {
+                              id: list.id,
+                              modification_date: new Date()
+                            }
+                          });
+                          list.todos.map(id =>
+                            store.dispatch({
+                              type: 'ARCHIVE_TODO',
+                              payload: { 
+                                id,
+                                modification_date: new Date()
+                              }
+                            })
+                          );
                         }
-                      });
-                      list.todos.map(id =>
-                        store.dispatch({
-                          type: 'ARCHIVE_TODO',
-                          payload: { 
-                            id,
-                            modification_date: new Date()
-                          }
-                        })
-                      );
-                    }
-                  }
-                >Archive</button>
-                <button
-                  class={ 'btn red size' }
-                  onClick={
+                      }
+                    >Archive</button>
+                    <button
+                      class={ 'btn red size' }
+                      onClick={
                     () => { 
                       store.dispatch({
                         type: 'DELETE_LIST_TODO',
@@ -437,31 +439,33 @@ class VisibleTodoList extends Component {
                       )
                     }
                   }>Delete</button>
-                <div 
-                    class = { 'margin-top' }
-                    ref={ 'text_filter' }
-                  >
-                  <FilterTodo
-                    visibilityFilter="SHOW_ALL"
-                    currentVisibilityFilter = { list.visibilityFilter }
-                    idList = { list.id }
-                    >ALL</FilterTodo>
-                    {' '}
-                    <FilterTodo
-                    visibilityFilter="SHOW_COMPLETED"
-                    currentVisibilityFilter = { list.visibilityFilter }
-                    idList = { list.id }
-                    >Completed</FilterTodo>
-                    {' '}
-                    <FilterTodo
-                    visibilityFilter="SHOW_ACTIVE"
-                    currentVisibilityFilter = { list.visibilityFilter }
-                    idList = { list.id }
-                    >ACTIVE</FilterTodo>        
                   </div>
                 </div>
               </div>
-             
+              <br/>
+              <div 
+                  class = { 'margin-top' }
+                  ref={ 'text_filter' }
+                >
+                <FilterTodo
+                  visibilityFilter="SHOW_ALL"
+                  currentVisibilityFilter = { list.visibilityFilter }
+                  idList = { list.id }
+                  >ALL</FilterTodo>
+                  {' '}
+                  <FilterTodo
+                  visibilityFilter="SHOW_COMPLETED"
+                  currentVisibilityFilter = { list.visibilityFilter }
+                  idList = { list.id }
+                  >Completed</FilterTodo>
+                  {' '}
+                  <FilterTodo
+                  visibilityFilter="SHOW_ACTIVE"
+                  currentVisibilityFilter = { list.visibilityFilter }
+                  idList = { list.id }
+                  >ACTIVE</FilterTodo>        
+                </div>
+            </div>
           )
         }
         </div>
