@@ -14,21 +14,24 @@ const note = (state = {}, action ) => {
       if (state.id === action.payload.id) {
         return {
           ...state,
-          title: action.payload.title
+          title: action.payload.title,
+          modification_date: action.payload.modification_date
         }
       }
-    case 'EDIT_NOTE_description':
+    case 'EDIT_NOTE_DESCRIPTION':
       if (state.id === action.payload.id) {
         return {
           ...state,
-          description: action.payload.description
+          description: action.payload.description,
+          modification_date: action.payload.modification_date
         }
       }
      case 'CHANGE_COLOR_NOTE':
       if (state.id === action.payload.id) {
         return {
           ...state,
-          color: action.payload.color
+          color: action.payload.color,
+          modification_date: action.payload.modification_date
         }
       }
      case 'ARCHIVE_NOTE':
@@ -59,7 +62,7 @@ const notes = (state = [], action) => {
       ];
     case 'EDIT_NOTE_TITLE':
       return state.map(l => note(l, action));
-    case 'EDIT_NOTE_description':
+    case 'EDIT_NOTE_DESCRIPTION':
       return state.map(l => note(l, action));
     case 'CHANGE_COLOR_NOTE':
       return state.map(l => note(l, action));

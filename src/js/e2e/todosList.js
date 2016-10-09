@@ -9,13 +9,13 @@ const testAddListTodo = () => {
     type: 'ADD_LIST_TODO',
     payload: {
       id: 0,
-      title: 'Limpiar mi casa'
+      title: 'Hacer el almuerzo'
     }
   }
 
   const stateAfter = [{
     id: 0,
-    title: 'Limpiar mi casa',
+    title: 'Hacer el almuerzo',
     archived: false,
     show_color: false
   }];
@@ -46,7 +46,7 @@ const testEditListTodo = () => {
     type: 'EDIT_LIST_TODO',
     payload: {
       id: 1,
-      title: 'Limpiar mi casa',
+      title: 'Hacer el almuerzo',
       modification_date: date
     }
   }
@@ -59,7 +59,7 @@ const testEditListTodo = () => {
   },
   {
     id: 1,
-    title: 'Limpiar mi casa',
+    title: 'Hacer el almuerzo',
     archived: false,
     show_color: false
   }];

@@ -8,14 +8,14 @@ const testAddNote = () => {
     type: 'ADD_NOTE',
     payload: {
       id: 0,
-      title: 'Limpiar mi casa',
+      title: 'Hacer el almuerzo',
       description: 'Limpiar mi cuarto'
     }
   }
 
   const stateAfter = [{
     id: 0,
-    title: 'Limpiar mi casa',
+    title: 'Hacer el almuerzo',
     description: 'Limpiar mi cuarto',
     saved: false,
     archived: false,
@@ -30,44 +30,52 @@ const testAddNote = () => {
   ).toEqual(stateAfter);
 }
 const testEditNoteTitle = () => {
-  const date = new Date();
   const stateBefore = [{
     id: 0,
-    title: 'Limpiar mi casa',
+    title: 'Hacer el almuerzo',
     description: 'Limpiar mi cuarto',
     saved: false,
     archived: false,
-    show_color: false
+    show_color: false,
+    creation_date: '2016/10/7',
+    modification_date: ''
   },{
     id: 1,
     title: 'Terminar proyecto',
     description: 'Google Keep',
     saved: false,
     archived: false,
-    show_color: false
+    show_color: false,
+    creation_date: '2016/10/7',
+    modification_date: ''
   }];
   const action = {
     type: 'EDIT_NOTE_TITLE',
     payload: {
       id: 1,
-      title: 'Estudiar sistos'
+      title: 'Estudiar sistos',
+      modification_date: '2016/10/8'
     }
   }
 
   const stateAfter = [{
     id: 0,
-    title: 'Limpiar mi casa',
+    title: 'Hacer el almuerzo',
     description: 'Limpiar mi cuarto',
     saved: false,
     archived: false,
-    show_color: false
+    show_color: false,
+    creation_date: '2016/10/7',
+    modification_date: ''
   },{
     id: 1,
     title: 'Estudiar sistos',
     description: 'Google Keep',
     saved: false,
     archived: false,
-    show_color: false
+    show_color: false,
+    creation_date: '2016/10/7',
+    modification_date: '2016/10/8'
   }];
 
   deepFreeze(stateBefore);
@@ -77,45 +85,54 @@ const testEditNoteTitle = () => {
     notes(stateBefore, action)
   ).toEqual(stateAfter);
 }
-const testEditdescriptionNote = () => {
+const testEditDescriptionNote = () => {
   const date = new Date();
   const stateBefore = [{
     id: 0,
-    title: 'Limpiar mi casa',
+    title: 'Hacer el almuerzo',
     description: 'Limpiar mi cuarto',
     saved: false,
     archived: false,
-    show_color: false
+    show_color: false,
+    creation_date: '2016/10/7',
+    modification_date: ''
   },{
     id: 1,
     title: 'Terminar proyecto',
     description: 'Google Keep',
     saved: false,
     archived: false,
-    show_color: false
+    show_color: false,
+    creation_date: '2016/10/7',
+    modification_date: ''
   }];
   const action = {
-    type: 'EDIT_NOTE_description',
+    type: 'EDIT_NOTE_DESCRIPTION',
     payload: {
       id: 1,
-      description: 'Saque 0'
+      description: 'Hacer busqueda',
+      modification_date: '2016/10/8'
     }
   }
 
   const stateAfter = [{
     id: 0,
-    title: 'Limpiar mi casa',
+    title: 'Hacer el almuerzo',
     description: 'Limpiar mi cuarto',
     saved: false,
     archived: false,
-    show_color: false
+    show_color: false,
+    creation_date: '2016/10/7',
+    modification_date: ''
   },{
     id: 1,
     title: 'Terminar proyecto',
-    description: 'Saque 0',
+    description: 'Hacer busqueda',
     saved: false,
     archived: false,
-    show_color: false
+    show_color: false,
+    creation_date: '2016/10/7',
+    modification_date: '2016/10/8'
   }];
 
   deepFreeze(stateBefore);
@@ -130,34 +147,41 @@ const testChangeColorNote = () => {
   const date = new Date();
   const stateBefore = [{
     id: 0,
-    title: 'Limpiar mi casa',
+    title: 'Hacer el almuerzo',
     description: 'Limpiar mi cuarto',
     saved: false,
     archived: false,
-    show_color: false
+    show_color: false,
+    creation_date: Date.now(),
+    modification_date: ''
   },{
     id: 1,
     title: 'Terminar proyecto',
     description: 'Google Keep',
     saved: false,
     archived: false,
-    show_color: false
+    show_color: false,
+    creation_date: Date.now(),
+    modification_date: ''
   }];
   const action = {
     type: 'CHANGE_COLOR_NOTE',
     payload: {
       id: 1,
-      color: 'blue'
+      color: 'blue',
+      modification_date: '2016/10/8'
     }
   }
 
   const stateAfter = [{
     id: 0,
-    title: 'Limpiar mi casa',
+    title: 'Hacer el almuerzo',
     description: 'Limpiar mi cuarto',
     saved: false,
     archived: false,
-    show_color: false
+    show_color: false,
+    creation_date: Date.now(),
+    modification_date: ''
   },{
     id: 1,
     title: 'Terminar proyecto',
@@ -166,6 +190,8 @@ const testChangeColorNote = () => {
     archived: false,
     show_color: false,
     color: 'blue',
+    creation_date: Date.now(),
+    modification_date: '2016/10/8'
   }];
 
   deepFreeze(stateBefore);
@@ -179,7 +205,7 @@ const testArchiveNote = () => {
   const date = new Date();
   const stateBefore = [{
     id: 0,
-    title: 'Limpiar mi casa',
+    title: 'Hacer el almuerzo',
     description: 'Limpiar mi cuarto',
     saved: false,
     archived: false,
@@ -202,7 +228,7 @@ const testArchiveNote = () => {
 
   const stateAfter = [{
     id: 0,
-    title: 'Limpiar mi casa',
+    title: 'Hacer el almuerzo',
     description: 'Limpiar mi cuarto',
     saved: false,
     archived: false,
@@ -227,7 +253,7 @@ const testShowColorNote = () => {
   const date = new Date();
   const stateBefore = [{
     id: 0,
-    title: 'Limpiar mi casa',
+    title: 'Hacer el almuerzo',
     description: 'Limpiar mi cuarto',
     saved: false,
     archived: false,
@@ -249,7 +275,7 @@ const testShowColorNote = () => {
 
   const stateAfter = [{
     id: 0,
-    title: 'Limpiar mi casa',
+    title: 'Hacer el almuerzo',
     description: 'Limpiar mi cuarto',
     saved: false,
     archived: false,
@@ -274,7 +300,7 @@ const testDeleteNote = () => {
   const date = new Date();
   const stateBefore = [{
     id: 0,
-    title: 'Limpiar mi casa',
+    title: 'Hacer el almuerzo',
     description: 'Limpiar mi cuarto',
     saved: false,
     archived: false,
@@ -296,7 +322,7 @@ const testDeleteNote = () => {
 
   const stateAfter = [{
     id: 0,
-    title: 'Limpiar mi casa',
+    title: 'Hacer el almuerzo',
     description: 'Limpiar mi cuarto',
     saved: false,
     archived: false,
@@ -313,7 +339,7 @@ const testDeleteNote = () => {
 
 testAddNote();
 testEditNoteTitle();
-testEditdescriptionNote();
+testEditDescriptionNote();
 testChangeColorNote();
 testArchiveNote();
 testShowColorNote();

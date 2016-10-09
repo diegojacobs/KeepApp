@@ -9,13 +9,13 @@ const testAddTodo = () => {
     type: 'ADD_TODO',
     payload: {
       id: 0,
-      text: 'Limpiar mi casa'
+      text: 'Hacer el almuerzo'
     }
   }
 
   const stateAfter = [{
     id: 0,
-    text: 'Limpiar mi casa',
+    text: 'Hacer el almuerzo',
     completed: false,
     saved: false,
     archived: false
@@ -33,7 +33,7 @@ const testToggleTodo = () => {
   const stateBefore = [
     {
       id: 0,
-      text: 'Limpiar mi casa',
+      text: 'Hacer el almuerzo',
       completed: false
     },
     {
@@ -53,7 +53,7 @@ const testToggleTodo = () => {
   const stateAfter = [
     {
       id: 0,
-      text: 'Limpiar mi casa',
+      text: 'Hacer el almuerzo',
       completed: false
     },
     {
@@ -75,7 +75,7 @@ const testSaveTodo = () => {
   const stateBefore = [
     {
       id: 0,
-      text: 'Limpiar mi casa',
+      text: 'Hacer el almuerzo',
       saved: false
     },
     {
@@ -95,7 +95,7 @@ const testSaveTodo = () => {
   const stateAfter = [
     {
       id: 0,
-      text: 'Limpiar mi casa',
+      text: 'Hacer el almuerzo',
       saved: false
     },
     {
@@ -118,7 +118,7 @@ const testEditTodo = () => {
   const stateBefore = [
     {
       id: 0,
-      text: 'Limpiar mi casa',
+      text: 'Hacer el almuerzo',
       completed: false
     },
     {
@@ -139,7 +139,7 @@ const testEditTodo = () => {
   const stateAfter = [
     {
       id: 0,
-      text: 'Limpiar mi casa',
+      text: 'Hacer el almuerzo',
       completed: false
     },
     {
@@ -162,7 +162,7 @@ const testArchiveTodo = () => {
   const stateBefore = [
     {
       id: 0,
-      text: 'Limpiar mi casa',
+      text: 'Hacer el almuerzo',
       archived: false
     },
     {
@@ -182,7 +182,7 @@ const testArchiveTodo = () => {
   const stateAfter = [
     {
       id: 0,
-      text: 'Limpiar mi casa',
+      text: 'Hacer el almuerzo',
       archived: false
     },
     {
@@ -204,7 +204,7 @@ const testDeleteTodo = () => {
   const stateBefore = [
     {
       id: 0,
-      text: 'Limpiar mi casa',
+      text: 'Hacer el almuerzo',
       completed: false
     },
     {
@@ -224,7 +224,7 @@ const testDeleteTodo = () => {
   const stateAfter = [
     {
       id: 0,
-      text: 'Limpiar mi casa',
+      text: 'Hacer el almuerzo',
       completed: false
     }
   ];

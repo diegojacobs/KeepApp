@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "",
   "main": "webpack.config.js",
-   "dependencies": {
+  "dependencies": {
     "babel-core": "^6.17.0",
     "babel-loader": "^6.2.0",
     "babel-plugin-add-module-exports": "^0.1.2",
@@ -22,10 +22,12 @@
     "html-webpack-plugin": "^2.22.0",
     "immutable": "^3.8.1",
     "install": "^0.8.1",
+    "moment": "^2.15.1",
     "node-sass": "^3.8.0",
     "npm": "^3.10.5",
     "react": "^15.3.0",
     "react-bootstrap": "^0.30.3",
+    "react-datetime": "^2.6.0",
     "react-dom": "^15.3.0",
     "react-keydown": "^1.6.2",
     "react-redux": "^4.4.5",

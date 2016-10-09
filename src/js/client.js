@@ -1,9 +1,14 @@
-import { createStore } from 'redux';
+import { createStore, combineReducers} from 'redux';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider, connect } from 'react-redux';
 import v4 from 'uuid-v4';
 import '../styles/index.scss';
+import {
+  addNote, editNoteTitle, editNoteDescription, deleteNote, archiveNote, changeColorNote,
+  addTodo, toggleTodo, editTodo, deleteTodo,
+  addTodoList, saveTodos, editTodoList, changeColorTodoList
+} from './actions/index';
 
 import reducer from './reducers'
 import { colors } from './containers/colors';
@@ -51,18 +56,10 @@ class AddNotes extends Component {
                   if (!this.refs.note_title.value .trim()) {
                     return
                   }
-                  if (!this.refs.note_description.value.trim()) {
+                  if (!this.refs.note_content.value.trim()) {
                     return
                   }
-                  store.dispatch({
-                    type: 'ADD_NOTE',
-                    payload: {
-                      id: v4(),
-                      title: this.refs.note_title.value,
-                      description: this.refs.note_description.value,
-                      saved: true
-                    }
-                  })
+                  store.dispatch(addNote(this.refs.note_title.value, this.refs.note_description.value));
                   this.refs.note_title.value = '';
                   this.refs.note_description.value = '';
                 }
@@ -75,6 +72,7 @@ class AddNotes extends Component {
             class= { 'description-input' }/>
           <br/>
           <button class="btn green done"
+            type="submit"
             onClick = {
               (e) => {
                 if (!this.refs.note_title.value .trim()) {
@@ -83,15 +81,7 @@ class AddNotes extends Component {
                 if (!this.refs.note_description.value.trim()) {
                   return
                 }
-                store.dispatch({
-                  type: 'ADD_NOTE',
-                  payload: {
-                    id: v4(),
-                    title: this.refs.note_title.value,
-                    description: this.refs.note_description.value,
-                    saved: true
-                  }
-                })
+                store.dispatch(addNote(this.refs.note_title.value, this.refs.note_description.value));
                 this.refs.note_title.value = '';
                 this.refs.note_description.value = '';     
               }}>Done</button>
@@ -118,43 +108,23 @@ class AddTodosLists extends Component {
           onKeyPress = {
             (e) => {
               if (e.key === 'Enter') {
-                store.dispatch({
-                  type: 'ADD_LIST_TODO',
-                  payload: {
-                    id: v4(),
-                    title: e.target.value,
-                    todos: getTodosInList(getUnArchived(todos), listTodo).map(t => t.id)
-                }
-              });
-              todos.map(t => {
-                store.dispatch({
-                  type: 'SAVE_TODO',
-                  payload: {
-                    id: t.id
-                  }
-                })
-              });
-              this.refs.color_list.style.backgroundColor = '';
-              this.refs.todo_title.value = '';
+                store.dispatch(addTodoList(e.target.value, getTodosInList(getUnArchived(todos), listTodo).map(t => t.id)));
+                todos.map(t => { store.dispatch(saveTodos(t.id)); });
+                this.refs.color_list.style.backgroundColor = '';
+                this.refs.todo_title.value = '';
               }
             }
           }
         />
         <input 
-          class = { 'description-input' }
+          class = { 'todo-input' }
           placeholder = { 'Add todo' }
           ref= { "todo" }
           onKeyPress={
             (e) => { 
               if (e.key === 'Enter') {
-                store.dispatch({
-                  type: 'ADD_TODO',
-                  payload: {
-                    id: v4(),
-                    text: e.target.value
-                  }
-                });
-              e.target.value = "";
+                store.dispatch(addTodo(e.target.value));
+                e.target.value = "";
               }
             }
           }/>
@@ -168,24 +138,10 @@ class AddTodosLists extends Component {
         type="submit"
         onClick = {
           (e) => {
-            store.dispatch({
-              type: 'ADD_LIST_TODO',
-              payload: {
-                id: v4(),
-                title: this.refs.todo_title.value,
-                todos: getTodosInList(getUnArchived(todos), listTodo).map(t => t.id)
-            }
-          });
-          todos.map(t => {
-            store.dispatch({
-              type: 'SAVE_TODO',
-              payload: {
-                id: t.id
-              }
-            })
-          });
-          this.refs.todo_title.value = '';
-          this.refs.todo.value = '';
+            store.dispatch(addTodoList(this.refs.todo_title.value, getTodosInList(getUnArchived(todos), listTodo).map(t => t.id)));;
+            todos.map(t => { store.dispatch(saveTodos(t.id)); });
+            this.refs.todo_title.value = '';
+            this.refs.todo.value = '';
           }}>Done</button>
       </div>
 
@@ -210,45 +166,25 @@ class VisibleNotes extends Component {
               class= { 'note-todoList-container' }
               style = {{ backgroundColor: note.color }}
               key = { note.id }>
-              <div 
-                class={ 'title-input' }
-                ref= { 'edit_note_title' }
-                onChange={
-                    (e) => { 
-                      store.dispatch({
-                        type: 'EDIT_NOTE_TITLE',
-                        payload: {
-                          id: note.id,
-                          title: e.target.value
-                        }
-                      });
+                <input 
+                  class={ 'title-input' }
+                  ref= { 'edit_note_title' }
+                  value= {note.title}
+                  onChange={
+                      (e) => { 
+                        store.dispatch(editNoteTitle(note.id, e.target.value));
+                      }
                     }
-                  }
-              >{ note.title }</div>
-              <div 
-                class={ 'title-input' }
-				        ref = { 'color_list' }
-                onChange={
-                    (e) => { 
-                      store.dispatch({
-                        type: 'EDIT_NOTE_description',
-                        payload: {
-                          id: note.id,
-                          description: e.target.value
-                        }
-                      });
-                    }
-                  }>{ note.description }</div>
-                <i onClick = { 
-                    () => {
-                      store.dispatch({
-                        type: 'SHOW_COLOR_NOTE',
-                        payload: {
-                          id: note.id
-                        }
-                      })
-                    }
-                  }></i>
+                />
+                <textArea 
+                  class={ 'title-input' }
+  				        ref = { 'color_list' }
+                  value = { note.content }
+                  onChange={
+                      (e) => { 
+                        store.dispatch(editNoteDescription(note.id, e.target.value));
+                      }
+                    }/>
                 <div>
                   <div style={{float: "right", width: "24%"}} class = { 'color-container' }>
                    <ColorContainer
@@ -261,28 +197,22 @@ class VisibleNotes extends Component {
                       class={ 'btn blue size' }
                       onClick={
                         () => { 
-                          store.dispatch({
-                            type: 'ARCHIVE_NOTE',
-                            payload: {
-                              id: note.id
-                            }
-                          });
+                          store.dispatch(archiveNote(note.id));
                         }
                       }>Archive</button>
                     <button
                       class={ 'btn red size' }
                       onClick={
                         () => { 
-                          store.dispatch({
-                            type: 'DELETE_NOTE',
-                            payload: {
-                              id: note.id
-                            }
-                          });
-                         
+                          store.dispatch(deleteNote(note.id));
                         }
                       }
                     >Delete</button>
+                    <div>
+                      Fecha de creación: { note.creation_date }
+                      <br/>
+                      Fecha de modificación: { note.modification_date }
+                    </div>
                   </div>
                 </div>
               </div>
@@ -319,20 +249,15 @@ class VisibleTodoList extends Component {
               }
               key = { list.id }
             >
-              <div 
+              <input 
                 class={ 'title-input' }
+                value={ list.title }
                 onChange={
                   (e) => { 
-                    store.dispatch({
-                      type: 'EDIT_LIST_TODO',
-                      payload: {
-                        id: list.id,
-                        title: e.target.value
-                      }
-                    });
+                    store.dispatch(editTodoList(list.id, e.target.value));
                   }
                 }
-              >{ list.title }</div>
+              />
               <AddTodo 
                 todos = { todos }
                 listTodo = { list }
@@ -342,17 +267,6 @@ class VisibleTodoList extends Component {
               <div 
                 class= { 'edit-div' }
               >
-                <i onClick = { 
-                    () => {
-                      store.dispatch({
-                        type: 'SHOW_COLORS',
-                        payload: {
-                          id: list.id
-                        }
-                      })
-                    }
-                  }
-                ></i>
                 <div>
                   <div style={{float: "right", width: "24%"}} class = { 'color-container' }>
                    <ColorContainer
@@ -368,14 +282,16 @@ class VisibleTodoList extends Component {
                           store.dispatch({
                             type: 'ARCHIVE_LIST_TODO',
                             payload: {
-                              id: list.id
+                              id: list.id,
+                              modification_date: new Date()
                             }
                           });
                           list.todos.map(id =>
                             store.dispatch({
                               type: 'ARCHIVE_TODO',
                               payload: { 
-                                id
+                                id,
+                                modification_date: new Date()
                               }
                             })
                           );
@@ -402,6 +318,11 @@ class VisibleTodoList extends Component {
                       )
                     }
                   }>Delete</button>
+                    <div>
+                      Fecha de creación: { list.creation_date}
+                      <br/>
+                      Fecha de modificación: { list.modification_date}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -457,12 +378,7 @@ class AddTodo extends Component {
             type={'checkbox'}
             onClick={
               () => { 
-                store.dispatch({
-                  type: 'TOGGLE_TODO',
-                  payload: {
-                    id: todo.id
-                  }
-                });
+                store.dispatch(toggleTodo(todo.id));
               }
             } 
             value={  todo.completed ? 'checked' : '' }
@@ -477,13 +393,7 @@ class AddTodo extends Component {
             }
             onChange = {
               (e) => {
-                store.dispatch({
-                  type: 'EDIT_TODO',
-                  payload: {
-                    text: e.target.value,
-                    id: todo.id
-                  }
-                })
+                store.dispatch(editTodo(todo.id, e.target.value));
               }
             }
             key={ todo.id }
@@ -493,12 +403,7 @@ class AddTodo extends Component {
           class= { 'btn red' }
           onClick={
             () => { 
-              store.dispatch({
-                type: 'DELETE_TODO',
-                payload: {
-                  id: todo.id
-                }
-              });
+              store.dispatch(deleteTodo(todo.id));
             }
           } 
         >X</button>
@@ -525,22 +430,10 @@ class ColorContainer extends Component {
           onClick = {
             () => {
               if (current === 'NOTE' ){
-                store.dispatch({
-                  type: 'CHANGE_COLOR_NOTE',
-                  payload: {
-                    id: note.id,
-                    color: color.div_color
-                  }
-                })
+                store.dispatch(changeColorNote(note.id, color.div_color));
               }
               else {
-                store.dispatch({
-                  type: 'CHANGE_COLOR_LIST_TODO',
-                  payload: {
-                    id: listTodo.id,
-                    color: color.div_color
-                  }
-                })
+                store.dispatch(changeColorTodoList(listTodo.id, color.div_color));
               }
             }
           }
@@ -656,6 +549,7 @@ class KeepApp extends Component {
 
   let { todos, todosList, notes, visibilityApp } = this.props;
   let visibletodosList = todosList.filter(l => l.archived === false);
+  let visibleNotes = notes.filter(l => l.archived === false);
   return (
     <div class="main-container">
       <AddTodosLists
@@ -673,7 +567,7 @@ class KeepApp extends Component {
         visibilityApp = { visibilityApp }>
       </VisibleTodoList>
       <VisibleNotes
-        notes = { notes }
+        notes = { visibleNotes }
         visibilityApp = { visibilityApp }>
       </VisibleNotes>
       <FilterLink
