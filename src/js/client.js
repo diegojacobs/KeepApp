@@ -1,19 +1,16 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { createStore } from 'redux';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider, connect } from 'react-redux';
 import v4 from 'uuid-v4';
 import '../styles/index.scss';
-import undoable from 'redux-undo';
-import { ActionCreators } from 'redux-undo';
-
 
 import reducer from './reducers'
 import { colors } from './containers/colors';
 const { Component } = React;
-import {} from './tests/todos';
-import {} from './tests/notes';
-import {} from './tests/todosList';
+import {} from './e2e/todos';
+import {} from './e2e/notes';
+import {} from './e2e/todosList';
 
 const loadState = () => {
   try{
@@ -34,29 +31,7 @@ const saveState = (state) => {
   }
 }
 
-const logger = store => next => action => {
-  console.log('dispatching', action)
-  let result = next(action)
-  console.log('next state', store.getState())
-  return result
-}
-
-const crashReporter = store => next => action => {
-  try {
-    return next(action)
-  } catch (err) {
-    console.error('Caught an exception!', err)
-    Raven.captureException(err, {
-      extra: {
-        action,
-        state: store.getState()
-      }
-    })
-    throw err
-  }
-}
-
-const store = createStore(reducer, loadState(),applyMiddleware(logger, crashReporter));
+const store = createStore(reducer, loadState());
 
 class AddNotes extends Component {
   render() {
@@ -76,7 +51,7 @@ class AddNotes extends Component {
                   if (!this.refs.note_title.value .trim()) {
                     return
                   }
-                  if (!this.refs.note_content.value.trim()) {
+                  if (!this.refs.note_description.value.trim()) {
                     return
                   }
                   store.dispatch({
@@ -84,30 +59,28 @@ class AddNotes extends Component {
                     payload: {
                       id: v4(),
                       title: this.refs.note_title.value,
-                      content: this.refs.note_content.value,
-                      saved: true,
-                      creation_date: new Date()
+                      description: this.refs.note_description.value,
+                      saved: true
                     }
                   })
                   this.refs.note_title.value = '';
-                  this.refs.note_content.value = '';
+                  this.refs.note_description.value = '';
                 }
               }
             }
           />
           <textArea
             placeholder = { 'Description' }
-            ref = { 'note_content' }
-            class= { 'main-input' }/>
+            ref = { 'note_description' }
+            class= { 'description-input' }/>
           <br/>
           <button class="btn green done"
-            type="submit"
             onClick = {
               (e) => {
                 if (!this.refs.note_title.value .trim()) {
                   return
                 }
-                if (!this.refs.note_content.value.trim()) {
+                if (!this.refs.note_description.value.trim()) {
                   return
                 }
                 store.dispatch({
@@ -115,13 +88,12 @@ class AddNotes extends Component {
                   payload: {
                     id: v4(),
                     title: this.refs.note_title.value,
-                    content: this.refs.note_content.value,
-                    saved: true,
-                    creation_date: new Date()
+                    description: this.refs.note_description.value,
+                    saved: true
                   }
                 })
                 this.refs.note_title.value = '';
-                this.refs.note_content.value = '';     
+                this.refs.note_description.value = '';     
               }}>Done</button>
         </div>
     );
@@ -151,8 +123,7 @@ class AddTodosLists extends Component {
                   payload: {
                     id: v4(),
                     title: e.target.value,
-                    todos: getTodosInList(getUnArchived(todos), listTodo).map(t => t.id),
-                    creation_date: new Date()
+                    todos: getTodosInList(getUnArchived(todos), listTodo).map(t => t.id)
                 }
               });
               todos.map(t => {
@@ -170,7 +141,7 @@ class AddTodosLists extends Component {
           }
         />
         <input 
-          class = { 'main-input' }
+          class = { 'description-input' }
           placeholder = { 'Add todo' }
           ref= { "todo" }
           onKeyPress={
@@ -180,8 +151,7 @@ class AddTodosLists extends Component {
                   type: 'ADD_TODO',
                   payload: {
                     id: v4(),
-                    text: e.target.value,
-                    creation_date: new Date()
+                    text: e.target.value
                   }
                 });
               e.target.value = "";
@@ -203,8 +173,7 @@ class AddTodosLists extends Component {
               payload: {
                 id: v4(),
                 title: this.refs.todo_title.value,
-                todos: getTodosInList(getUnArchived(todos), listTodo).map(t => t.id),
-                creation_date: new Date()
+                todos: getTodosInList(getUnArchived(todos), listTodo).map(t => t.id)
             }
           });
           todos.map(t => {
@@ -250,8 +219,7 @@ class VisibleNotes extends Component {
                         type: 'EDIT_NOTE_TITLE',
                         payload: {
                           id: note.id,
-                          title: e.target.value,
-                          modification_date: new Date()
+                          title: e.target.value
                         }
                       });
                     }
@@ -263,15 +231,14 @@ class VisibleNotes extends Component {
                 onChange={
                     (e) => { 
                       store.dispatch({
-                        type: 'EDIT_NOTE_CONTENT',
+                        type: 'EDIT_NOTE_description',
                         payload: {
                           id: note.id,
-                          content: e.target.value,
-                          modification_date: new Date()
+                          description: e.target.value
                         }
                       });
                     }
-                  }>{ note.content }</div>
+                  }>{ note.description }</div>
                 <i onClick = { 
                     () => {
                       store.dispatch({
@@ -297,8 +264,7 @@ class VisibleNotes extends Component {
                           store.dispatch({
                             type: 'ARCHIVE_NOTE',
                             payload: {
-                              id: note.id,
-                              modification_date: new Date()
+                              id: note.id
                             }
                           });
                         }
@@ -361,8 +327,7 @@ class VisibleTodoList extends Component {
                       type: 'EDIT_LIST_TODO',
                       payload: {
                         id: list.id,
-                        title: e.target.value,
-                        modification_date: new Date()
+                        title: e.target.value
                       }
                     });
                   }
@@ -403,16 +368,14 @@ class VisibleTodoList extends Component {
                           store.dispatch({
                             type: 'ARCHIVE_LIST_TODO',
                             payload: {
-                              id: list.id,
-                              modification_date: new Date()
+                              id: list.id
                             }
                           });
                           list.todos.map(id =>
                             store.dispatch({
                               type: 'ARCHIVE_TODO',
                               payload: { 
-                                id,
-                                modification_date: new Date()
+                                id
                               }
                             })
                           );
@@ -497,8 +460,7 @@ class AddTodo extends Component {
                 store.dispatch({
                   type: 'TOGGLE_TODO',
                   payload: {
-                    id: todo.id,
-                    modification_date: new Date()
+                    id: todo.id
                   }
                 });
               }
@@ -519,8 +481,7 @@ class AddTodo extends Component {
                   type: 'EDIT_TODO',
                   payload: {
                     text: e.target.value,
-                    id: todo.id,
-                    modification_date: new Date()
+                    id: todo.id
                   }
                 })
               }
@@ -568,8 +529,7 @@ class ColorContainer extends Component {
                   type: 'CHANGE_COLOR_NOTE',
                   payload: {
                     id: note.id,
-                    color: color.div_color,
-                    modification_date: new Date()
+                    color: color.div_color
                   }
                 })
               }
@@ -578,8 +538,7 @@ class ColorContainer extends Component {
                   type: 'CHANGE_COLOR_LIST_TODO',
                   payload: {
                     id: listTodo.id,
-                    color: color.div_color,
-                    modification_date: new Date()
+                    color: color.div_color
                   }
                 })
               }

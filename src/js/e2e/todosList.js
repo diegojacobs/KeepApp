@@ -9,8 +9,7 @@ const testAddListTodo = () => {
     type: 'ADD_LIST_TODO',
     payload: {
       id: 0,
-      title: 'Limpiar mi casa',
-      creation_date: date
+      title: 'Limpiar mi casa'
     }
   }
 
@@ -18,8 +17,7 @@ const testAddListTodo = () => {
     id: 0,
     title: 'Limpiar mi casa',
     archived: false,
-    show_color: false,
-    creation_date: date
+    show_color: false
   }];
 
   deepFreeze(stateBefore);
@@ -36,15 +34,13 @@ const testEditListTodo = () => {
     id: 0,
     title: 'TODO',
     archived: false,
-    show_color: false,
-    creation_date: date
+    show_color: false
   },
   {
     id: 1,
     title: 'LIST',
     archived: false,
-    show_color: false,
-    creation_date: date
+    show_color: false
   }];
   const action = {
     type: 'EDIT_LIST_TODO',
@@ -59,16 +55,13 @@ const testEditListTodo = () => {
     id: 0,
     title: 'TODO',
     archived: false,
-    show_color: false,
-    creation_date: date
+    show_color: false
   },
   {
     id: 1,
     title: 'Limpiar mi casa',
     archived: false,
-    show_color: false,
-    creation_date: date,
-    modification_date: date
+    show_color: false
   }];
 
   deepFreeze(stateBefore);
@@ -84,22 +77,19 @@ const testChangeColorListTodo = () => {
     id: 0,
     title: 'TODO',
     archived: false,
-    show_color: false,
-    creation_date: date
+    show_color: false
   },
   {
     id: 1,
     title: 'LIST',
     archived: false,
-    show_color: false,
-    creation_date: date
+    show_color: false
   }];
   const action = {
     type: 'CHANGE_COLOR_LIST_TODO',
     payload: {
       id: 1,
-      color: 'blue',
-      modification_date: date
+      color: 'blue'
     }
   }
 
@@ -107,17 +97,14 @@ const testChangeColorListTodo = () => {
     id: 0,
     title: 'TODO',
     archived: false,
-    show_color: false,
-    creation_date: date
+    show_color: false
   },
   {
     id: 1,
     title: 'LIST',
     archived: false,
     show_color: false,
-    color: 'blue',
-    creation_date: date,
-    modification_date: date
+    color: 'blue'
   }];
 
   deepFreeze(stateBefore);
@@ -128,26 +115,22 @@ const testChangeColorListTodo = () => {
   ).toEqual(stateAfter);
 }
 const testArchiveListTodo = () => {
-  const date = new Date();
   const stateBefore = [{
     id: 0,
     title: 'TODO',
     archived: false,
-    show_color: false,
-    creation_date: date
+    show_color: false
   },
   {
     id: 1,
     title: 'LIST',
     archived: false,
-    show_color: false,
-    creation_date: date
+    show_color: false
   }];
   const action = {
     type: 'ARCHIVE_LIST_TODO',
     payload: {
-      id: 1,
-      modification_date: date
+      id: 1
     }
   }
 
@@ -155,16 +138,13 @@ const testArchiveListTodo = () => {
     id: 0,
     title: 'TODO',
     archived: false,
-    show_color: false,
-    creation_date: date
+    show_color: false
   },
   {
     id: 1,
     title: 'LIST',
     archived: true,
-    show_color: false,
-    creation_date: date,
-    modification_date: date
+    show_color: false
   }];
 
   deepFreeze(stateBefore);
@@ -176,20 +156,17 @@ const testArchiveListTodo = () => {
 }
 
 const testShowColor = () => {
-  const date = new Date();
   const stateBefore = [{
     id: 0,
     title: 'TODO',
     archived: false,
-    show_color: false,
-    creation_date: date
+    show_color: false
   },
   {
     id: 1,
     title: 'LIST',
     archived: false,
-    show_color: false,
-    creation_date: date
+    show_color: false
   }];
   const action = {
     type: 'SHOW_COLORS',
@@ -202,15 +179,13 @@ const testShowColor = () => {
     id: 0,
     title: 'TODO',
     archived: false,
-    show_color: false,
-    creation_date: date
+    show_color: false
   },
   {
     id: 1,
     title: 'LIST',
     archived: false,
-    show_color: true,
-    creation_date: date
+    show_color: true
   }];
 
   deepFreeze(stateBefore);
@@ -222,20 +197,17 @@ const testShowColor = () => {
 }
 
 const testVisibilityFilter = () => {
-  const date = new Date();
   const stateBefore = [{
     id: 0,
     title: 'TODO',
     archived: false,
     show_color: false,
-    creation_date: date
   },
   {
     id: 1,
     title: 'LIST',
     archived: false,
     show_color: false,
-    creation_date: date
   }];
   const action = {
     type: 'SET_VISIBILITY_FILTER',
@@ -250,15 +222,13 @@ const testVisibilityFilter = () => {
     title: 'TODO',
     archived: false,
     show_color: false,
-    creation_date: date
   },
   {
     id: 1,
     title: 'LIST',
     archived: false,
     show_color: false,
-    visibilityFilter: 'SHOW_ALL',
-    creation_date: date,
+    visibilityFilter: 'SHOW_ALL'
   }];
 
   deepFreeze(stateBefore);
@@ -277,5 +247,5 @@ testShowColor();
 testVisibilityFilter();
 
 
-console.log("All list todo tests passed!");
+console.log("TodosList tests passed!");
 export {  };

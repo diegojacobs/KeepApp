@@ -4,25 +4,22 @@ import expect from 'expect';
 
 const testAddNote = () => {
   const stateBefore = [];
-  const date = new Date();
   const action = {
     type: 'ADD_NOTE',
     payload: {
       id: 0,
       title: 'Limpiar mi casa',
-      content: 'Limpiar mi cuarto',
-      creation_date: date
+      description: 'Limpiar mi cuarto'
     }
   }
 
   const stateAfter = [{
     id: 0,
     title: 'Limpiar mi casa',
-    content: 'Limpiar mi cuarto',
+    description: 'Limpiar mi cuarto',
     saved: false,
     archived: false,
-    show_color: false,
-    creation_date: date
+    show_color: false
   }];
 
   deepFreeze(stateBefore);
@@ -37,46 +34,40 @@ const testEditNoteTitle = () => {
   const stateBefore = [{
     id: 0,
     title: 'Limpiar mi casa',
-    content: 'Limpiar mi cuarto',
+    description: 'Limpiar mi cuarto',
     saved: false,
     archived: false,
-    show_color: false,
-    creation_date: date
+    show_color: false
   },{
     id: 1,
     title: 'Terminar proyecto',
-    content: 'Google Keep',
+    description: 'Google Keep',
     saved: false,
     archived: false,
-    show_color: false,
-    creation_date: date
+    show_color: false
   }];
   const action = {
     type: 'EDIT_NOTE_TITLE',
     payload: {
       id: 1,
-      title: 'Estudiar sistos',
-      modification_date: date
+      title: 'Estudiar sistos'
     }
   }
 
   const stateAfter = [{
     id: 0,
     title: 'Limpiar mi casa',
-    content: 'Limpiar mi cuarto',
+    description: 'Limpiar mi cuarto',
     saved: false,
     archived: false,
-    show_color: false,
-    creation_date: date
+    show_color: false
   },{
     id: 1,
     title: 'Estudiar sistos',
-    content: 'Google Keep',
+    description: 'Google Keep',
     saved: false,
     archived: false,
-    show_color: false,
-    creation_date: date,
-    modification_date: date
+    show_color: false
   }];
 
   deepFreeze(stateBefore);
@@ -86,51 +77,45 @@ const testEditNoteTitle = () => {
     notes(stateBefore, action)
   ).toEqual(stateAfter);
 }
-const testEditContentNote = () => {
+const testEditdescriptionNote = () => {
   const date = new Date();
   const stateBefore = [{
     id: 0,
     title: 'Limpiar mi casa',
-    content: 'Limpiar mi cuarto',
+    description: 'Limpiar mi cuarto',
     saved: false,
     archived: false,
-    show_color: false,
-    creation_date: date
+    show_color: false
   },{
     id: 1,
     title: 'Terminar proyecto',
-    content: 'Google Keep',
+    description: 'Google Keep',
     saved: false,
     archived: false,
-    show_color: false,
-    creation_date: date
+    show_color: false
   }];
   const action = {
-    type: 'EDIT_NOTE_CONTENT',
+    type: 'EDIT_NOTE_description',
     payload: {
       id: 1,
-      content: 'Saque 0',
-      modification_date: date
+      description: 'Saque 0'
     }
   }
 
   const stateAfter = [{
     id: 0,
     title: 'Limpiar mi casa',
-    content: 'Limpiar mi cuarto',
+    description: 'Limpiar mi cuarto',
     saved: false,
     archived: false,
-    show_color: false,
-    creation_date: date
+    show_color: false
   },{
     id: 1,
     title: 'Terminar proyecto',
-    content: 'Saque 0',
+    description: 'Saque 0',
     saved: false,
     archived: false,
-    show_color: false,
-    creation_date: date,
-    modification_date: date
+    show_color: false
   }];
 
   deepFreeze(stateBefore);
@@ -146,47 +131,41 @@ const testChangeColorNote = () => {
   const stateBefore = [{
     id: 0,
     title: 'Limpiar mi casa',
-    content: 'Limpiar mi cuarto',
+    description: 'Limpiar mi cuarto',
     saved: false,
     archived: false,
-    show_color: false,
-    creation_date: date
+    show_color: false
   },{
     id: 1,
     title: 'Terminar proyecto',
-    content: 'Google Keep',
+    description: 'Google Keep',
     saved: false,
     archived: false,
-    show_color: false,
-    creation_date: date
+    show_color: false
   }];
   const action = {
     type: 'CHANGE_COLOR_NOTE',
     payload: {
       id: 1,
-      color: 'blue',
-      modification_date: date
+      color: 'blue'
     }
   }
 
   const stateAfter = [{
     id: 0,
     title: 'Limpiar mi casa',
-    content: 'Limpiar mi cuarto',
+    description: 'Limpiar mi cuarto',
     saved: false,
     archived: false,
-    show_color: false,
-    creation_date: date
+    show_color: false
   },{
     id: 1,
     title: 'Terminar proyecto',
-    content: 'Google Keep',
+    description: 'Google Keep',
     saved: false,
     archived: false,
     show_color: false,
     color: 'blue',
-    creation_date: date,
-    modification_date: date
   }];
 
   deepFreeze(stateBefore);
@@ -201,46 +180,40 @@ const testArchiveNote = () => {
   const stateBefore = [{
     id: 0,
     title: 'Limpiar mi casa',
-    content: 'Limpiar mi cuarto',
+    description: 'Limpiar mi cuarto',
     saved: false,
     archived: false,
-    show_color: false,
-    creation_date: date
+    show_color: false
   },{
     id: 1,
     title: 'Terminar proyecto',
-    content: 'Google Keep',
+    description: 'Google Keep',
     saved: false,
     archived: false,
-    show_color: false,
-    creation_date: date
+    show_color: false
   }];
   const action = {
     type: 'ARCHIVE_NOTE',
     payload: {
       id: 1,
-      archived: true,
-      modification_date: date
+      archived: true
     }
   }
 
   const stateAfter = [{
     id: 0,
     title: 'Limpiar mi casa',
-    content: 'Limpiar mi cuarto',
+    description: 'Limpiar mi cuarto',
     saved: false,
     archived: false,
-    show_color: false,
-    creation_date: date
+    show_color: false
   },{
     id: 1,
     title: 'Terminar proyecto',
-    content: 'Google Keep',
+    description: 'Google Keep',
     saved: false,
     archived: true,
-    show_color: false,
-    creation_date: date,
-    modification_date: date
+    show_color: false
   }];
 
   deepFreeze(stateBefore);
@@ -255,19 +228,17 @@ const testShowColorNote = () => {
   const stateBefore = [{
     id: 0,
     title: 'Limpiar mi casa',
-    content: 'Limpiar mi cuarto',
+    description: 'Limpiar mi cuarto',
     saved: false,
     archived: false,
-    show_color: false,
-    creation_date: date
+    show_color: false
   },{
     id: 1,
     title: 'Terminar proyecto',
-    content: 'Google Keep',
+    description: 'Google Keep',
     saved: false,
     archived: false,
-    show_color: false,
-    creation_date: date
+    show_color: false
   }];
   const action = {
     type: 'SHOW_COLOR_NOTE',
@@ -279,19 +250,17 @@ const testShowColorNote = () => {
   const stateAfter = [{
     id: 0,
     title: 'Limpiar mi casa',
-    content: 'Limpiar mi cuarto',
+    description: 'Limpiar mi cuarto',
     saved: false,
     archived: false,
-    show_color: false,
-    creation_date: date
+    show_color: false
   },{
     id: 1,
     title: 'Terminar proyecto',
-    content: 'Google Keep',
+    description: 'Google Keep',
     saved: false,
     archived: false,
-    show_color: true,
-    creation_date: date
+    show_color: true
   }];
 
   deepFreeze(stateBefore);
@@ -306,19 +275,17 @@ const testDeleteNote = () => {
   const stateBefore = [{
     id: 0,
     title: 'Limpiar mi casa',
-    content: 'Limpiar mi cuarto',
+    description: 'Limpiar mi cuarto',
     saved: false,
     archived: false,
-    show_color: false,
-    creation_date: date
+    show_color: false
   },{
     id: 1,
     title: 'Terminar proyecto',
-    content: 'Google Keep',
+    description: 'Google Keep',
     saved: false,
     archived: false,
-    show_color: false,
-    creation_date: date
+    show_color: false
   }];
   const action = {
     type: 'DELETE_NOTE',
@@ -330,11 +297,10 @@ const testDeleteNote = () => {
   const stateAfter = [{
     id: 0,
     title: 'Limpiar mi casa',
-    content: 'Limpiar mi cuarto',
+    description: 'Limpiar mi cuarto',
     saved: false,
     archived: false,
-    show_color: false,
-    creation_date: date
+    show_color: false
   }];
 
   deepFreeze(stateBefore);
@@ -347,7 +313,7 @@ const testDeleteNote = () => {
 
 testAddNote();
 testEditNoteTitle();
-testEditContentNote();
+testEditdescriptionNote();
 testChangeColorNote();
 testArchiveNote();
 testShowColorNote();

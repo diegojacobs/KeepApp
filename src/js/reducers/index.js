@@ -4,11 +4,11 @@ import { todosList } from './todosList';
 import { notes } from './notes';
 import { visibilityApp } from './visibilityApp';
 
-const todoApp = combineReducers({
+const keepApp = combineReducers({
   todos,
   todosList,
   notes,
   visibilityApp
 });
 
-export default todoApp
+export default keepApp

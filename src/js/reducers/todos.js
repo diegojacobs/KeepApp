@@ -11,16 +11,14 @@ const todo = (state = {}, action) => {
       if(state.id === action.payload.id){
         return {
           ...state,
-          completed: !state.completed,
-          modification_date: action.payload.modification_date
+          completed: !state.completed
         };
       }
     case 'SAVE_TODO':
       if (state.id === action.payload.id) {
         return {
           ...state,
-          saved: true,
-          modification_date: action.payload.modification_date
+          saved: true
         }
       }
     case 'EDIT_TODO':
@@ -28,16 +26,14 @@ const todo = (state = {}, action) => {
         console.log(action.payload.text)
         return {
           ...state,
-          text: action.payload.text,
-          modification_date: action.payload.modification_date
+          text: action.payload.text
         }
       }
     case 'ARCHIVE_TODO':
       if (state.id === action.payload.id) {
         return {
           ...state,
-          archived: true,
-          modification_date: action.payload.modification_date
+          archived: true
         }
       }
     default:
