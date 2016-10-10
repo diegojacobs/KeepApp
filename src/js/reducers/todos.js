@@ -11,7 +11,8 @@ const todo = (state = {}, action) => {
       if(state.id === action.payload.id){
         return {
           ...state,
-          completed: !state.completed
+          completed: !state.completed,
+          modification_date: action.payload.modification_date
         };
       }
     case 'SAVE_TODO':
@@ -23,10 +24,10 @@ const todo = (state = {}, action) => {
       }
     case 'EDIT_TODO':
       if (state.id === action.payload.id){
-        console.log(action.payload.text)
         return {
           ...state,
-          text: action.payload.text
+          text: action.payload.text,
+          modification_date: action.payload.modification_date
         }
       }
     case 'ARCHIVE_TODO':

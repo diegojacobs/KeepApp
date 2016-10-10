@@ -15,7 +15,7 @@ export const addTodo = (todo) => ({
 export const toggleTodo = (id) => ({
   type: 'TOGGLE_TODO',
   payload: { 
-    id,
+    id: id,
     modification_date: moment().format('LLL')
   }
 })
@@ -34,6 +34,14 @@ export const deleteTodo = (id) => ({
   payload: {
     id: id
   }
+})
+
+export const archiveTodo = (id) => ({
+  type: 'ARCHIVE_TODO',
+	payload: { 
+		id: id,
+		modification_date: moment().format('LLL')
+	}
 })
 
 /*NOTES*/
@@ -117,7 +125,7 @@ export const editTodoList = (id, title) => ({
     title: title,
     modification_date: moment().format('LLL')
   }
-});
+})
 
 export const changeColorTodoList = (id, color) => ({
 	type: 'CHANGE_COLOR_LIST_TODO',
@@ -128,82 +136,32 @@ export const changeColorTodoList = (id, color) => ({
   }
 })
 
-export const addTodoToList = (newId, text) => ({
-  type: 'ADD_TODO_TO_LIST',
-  payload: {
-    id: newId, 
-    text,
-    creation_date: moment().format('LLL')
-  }
-});
-
-export const addNewTodos = (id, newId) => ({
-  type: 'ADD_NEW_TODOS',
-  payload: {
-    id, 
-    newId, 
-    modification_date: moment().format('LLL')
-  }
-});
-
-export const showColorsTodo = (id) => ({
-  type: 'SHOW_COLORS',
-  payload: {
-    id
-  }
-});
-
-export const archiveListTodo = (id) => ({
+export const archiveTodoList = (id) => ({
   type: 'ARCHIVE_LIST_TODO',
   payload: {
-    id,
+    id: id,
     modification_date: moment().format('LLL')
   }
-});
-
-export const archiveTodo = (id) => ({
-  type: 'TOGGLE_ARCHIVE_TODO',
-  payload: {
-    id,
-    modification_date: moment().format('LLL')
-  }
-});
+})
 
 export const deleteListTodo = (id) => ({
   type: 'DELETE_LIST_TODO',
   payload: {
-    id
+    id: id
   }
-});
-
-export const deleteTodos = (id) => ({
-  type: 'DELETE_TODO',
-  payload: {
-    id
-  }
-});
-
-export const changeColorListTodo = (id, color) => ({
-  type: 'CHANGE_COLOR_LIST_TODO',
-  payload: {
-    id, color, 
-    modification_date: moment().format('LLL')
-  }
-});
-
-export const setVisibleFilter = (idList, visibilityFilter) => ({
-  type: 'SET_VISIBILITY_FILTER',
-  payload: {
-    idList,
-    visibilityFilter
-  }
-});
-
-
+})
 
 
 /*FILTERS*/
 export const setVisibilityFilter = (filter) => ({
   type: 'SET_VISIBILITY_FILTER',
   filter
+})
+
+/*SEARCH*/
+export const setSearch = (search) => ({
+  type: 'SET_SEARCH_FILTER',
+  payload: {
+    search: search
+  }
 })

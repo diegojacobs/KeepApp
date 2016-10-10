@@ -34,19 +34,22 @@ const testToggleTodo = () => {
     {
       id: 0,
       text: 'Hacer el almuerzo',
-      completed: false
+      completed: false,
+      modification_date: ''
     },
     {
       id: 1,
       text: 'Limpiar',
-      completed: false
+      completed: false,
+      modification_date: ''
     }
   ];
 
   const action = {
     type: 'TOGGLE_TODO',
     payload: {
-      id: 1
+      id: 1,
+      modification_date: ''
     }
   }
 
@@ -54,12 +57,14 @@ const testToggleTodo = () => {
     {
       id: 0,
       text: 'Hacer el almuerzo',
-      completed: false
+      completed: false,
+      modification_date: ''
     },
     {
       id: 1,
       text: 'Limpiar',
-      completed: true
+      completed: true,
+      modification_date: ''
     }
   ];
 
@@ -119,12 +124,14 @@ const testEditTodo = () => {
     {
       id: 0,
       text: 'Hacer el almuerzo',
-      completed: false
+      completed: false,
+      modification_date: ''
     },
     {
       id: 1,
       text: 'Limpiar',
-      completed: false
+      completed: false,
+      modification_date: ''
     }
   ];
 
@@ -132,7 +139,8 @@ const testEditTodo = () => {
     type: 'EDIT_TODO',
     payload: {
       id: 1,
-      text: 'EDITED'
+      text: 'EDITED',
+      modification_date: ''
     }
   }
 
@@ -140,12 +148,14 @@ const testEditTodo = () => {
     {
       id: 0,
       text: 'Hacer el almuerzo',
-      completed: false
+      completed: false,
+      modification_date: ''
     },
     {
       id: 1,
       text: 'EDITED',
-      completed: false
+      completed: false,
+      modification_date: ''
     }
   ];
 
@@ -205,19 +215,22 @@ const testDeleteTodo = () => {
     {
       id: 0,
       text: 'Hacer el almuerzo',
-      completed: false
+      completed: false,
+      modification_date: ''
     },
     {
       id: 1,
       text: 'Limpiar',
-      completed: false
+      completed: false,
+      modification_date: ''
     }
   ];
 
   const action = {
     type: 'DELETE_TODO',
     payload: {
-      id: 1
+      id: 1,
+      modification_date: ''
     }
   }
 
@@ -225,7 +238,8 @@ const testDeleteTodo = () => {
     {
       id: 0,
       text: 'Hacer el almuerzo',
-      completed: false
+      completed: false,
+      modification_date: ''
     }
   ];
 

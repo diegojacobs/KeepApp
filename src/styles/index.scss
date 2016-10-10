@@ -126,6 +126,11 @@ $offset-circle: $offset-circle - 20px;
   padding-left: 10px;
 }
 
+.add-objects{
+  background: #E3DDFF;
+  width: 100%;
+}
+
 .add-container {
   background: #E3DDFF;
   display: inline-block;
@@ -155,6 +160,7 @@ $offset-circle: $offset-circle - 20px;
 .main-container {
   display: inline-block;
   text-align: -webkit-center;
+  width: 100%;
 }
 
 .main-div {
@@ -201,5 +207,15 @@ $offset-circle: $offset-circle - 20px;
   margin-top: 40px;
 }
   
+.search-bar{
+  background: #393740;
+}
 
-  
+.search{
+  background: transparent;;
+  border: none;
+  font-size: 18px;
+  height: 40px;
+  width: 360px;
+  color: white;
+}

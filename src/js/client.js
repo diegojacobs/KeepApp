@@ -6,8 +6,9 @@ import v4 from 'uuid-v4';
 import '../styles/index.scss';
 import {
   addNote, editNoteTitle, editNoteDescription, deleteNote, archiveNote, changeColorNote,
-  addTodo, toggleTodo, editTodo, deleteTodo,
-  addTodoList, saveTodos, editTodoList, changeColorTodoList
+  addTodo, toggleTodo, editTodo, deleteTodo, archiveTodo,
+  addTodoList, saveTodos, editTodoList, changeColorTodoList, archiveTodoList, deleteListTodo,
+  setSearch
 } from './actions/index';
 
 import reducer from './reducers'
@@ -234,7 +235,7 @@ class VisibleTodoList extends Component {
       todosList = [];
     }
     if (visibilityApp.app === 'SHOW_TODOS' || visibilityApp.app === 'SHOW_ALL') {
-    todosList = getSearchFilter(todosList, visibilityApp.search);
+    todosList = getSearchFilterTodosList(todosList, visibilityApp.search);
     return (
         <div>
         {
@@ -279,22 +280,8 @@ class VisibleTodoList extends Component {
                       class={ 'btn blue size' }
                       onClick={
                         () => { 
-                          store.dispatch({
-                            type: 'ARCHIVE_LIST_TODO',
-                            payload: {
-                              id: list.id,
-                              modification_date: new Date()
-                            }
-                          });
-                          list.todos.map(id =>
-                            store.dispatch({
-                              type: 'ARCHIVE_TODO',
-                              payload: { 
-                                id,
-                                modification_date: new Date()
-                              }
-                            })
-                          );
+                          store.dispatch(archiveTodoList(list.id));
+                          list.todos.map(id => store.dispatch(archiveTodo(id)));
                         }
                       }
                     >Archive</button>
@@ -302,20 +289,8 @@ class VisibleTodoList extends Component {
                       class={ 'btn red size' }
                       onClick={
                     () => { 
-                      store.dispatch({
-                        type: 'DELETE_LIST_TODO',
-                        payload: {
-                          id: list.id
-                        }
-                      });
-                      list.todos.map(id => 
-                        store.dispatch({
-                          type: 'DELETE_TODO',
-                          payload: {
-                            id
-                          }
-                        })
-                      )
+                      store.dispatch(deleteListTodo(list.id));
+                      list.todos.map(id => store.dispatch(deleteTodo(id)));
                     }
                   }>Delete</button>
                     <div>
@@ -387,8 +362,7 @@ class AddTodo extends Component {
             class ={ 'list-input' }
             style={
               {
-              textDecoration: todo.completed ? 'line-through' : 'none',
-			  background: 'transparent'
+                textDecoration: todo.completed ? 'line-through' : 'none', background: 'transparent'
               }
             }
             onChange = {
@@ -527,7 +501,7 @@ const getUnSaved = (todos) => {
   return todos.filter(t => t.saved === false);
 }
 
-const getSearchFilter = (todosList, search) => {
+const getSearchFilterTodosList = (todosList, search) => {
   
   if (search !== '') {
     
@@ -543,6 +517,24 @@ const getSearchFilterNotes = (notes, search) => {
   return notes;
 }
 
+class Search extends Component {
+  render() {
+    return ( 
+      <div class="search-bar">
+        <input 
+          class= { 'search' }
+          placeholder= { 'Search'}
+          onChange = {
+            (e) => {
+              store.dispatch(setSearch(e.target.value));
+            }
+          }
+        />
+    </div>
+  );
+ }
+}
+
 class KeepApp extends Component {
 
   render() {
@@ -552,15 +544,18 @@ class KeepApp extends Component {
   let visibleNotes = notes.filter(l => l.archived === false);
   return (
     <div class="main-container">
-      <AddTodosLists
-        todos = { todos }
-        listTodo = { visibletodosList }
-        visibilityApp = { visibilityApp }>
-      </AddTodosLists>
-      <AddNotes
-       notes = { notes }
-       visibilityApp = { visibilityApp }> 
-      </AddNotes>
+      <Search/>
+      <div class="add-objects">
+        <AddTodosLists
+          todos = { todos }
+          listTodo = { visibletodosList }
+          visibilityApp = { visibilityApp }>
+        </AddTodosLists>
+        <AddNotes
+         notes = { notes }
+         visibilityApp = { visibilityApp }> 
+        </AddNotes>
+      </div>
       <VisibleTodoList
         todosList = { visibletodosList }
         todos = { todos }

@@ -4,7 +4,6 @@ import expect from 'expect';
 
 const testAddListTodo = () => {
   const stateBefore = [];
-  const date = new Date();
   const action = {
     type: 'ADD_LIST_TODO',
     payload: {
@@ -29,25 +28,26 @@ const testAddListTodo = () => {
 }
 
 const testEditListTodo = () => {
-  const date = new Date();
   const stateBefore = [{
     id: 0,
     title: 'TODO',
     archived: false,
-    show_color: false
+    show_color: false,
+    modification_date: ''
   },
   {
     id: 1,
     title: 'LIST',
     archived: false,
-    show_color: false
+    show_color: false,
+    modification_date: ''
   }];
   const action = {
     type: 'EDIT_LIST_TODO',
     payload: {
       id: 1,
       title: 'Hacer el almuerzo',
-      modification_date: date
+      modification_date: ''
     }
   }
 
@@ -55,13 +55,15 @@ const testEditListTodo = () => {
     id: 0,
     title: 'TODO',
     archived: false,
-    show_color: false
+    show_color: false,
+    modification_date: ''
   },
   {
     id: 1,
     title: 'Hacer el almuerzo',
     archived: false,
-    show_color: false
+    show_color: false,
+    modification_date: ''
   }];
 
   deepFreeze(stateBefore);
@@ -72,24 +74,26 @@ const testEditListTodo = () => {
   ).toEqual(stateAfter);
 }
 const testChangeColorListTodo = () => {
-  const date = new Date();
   const stateBefore = [{
     id: 0,
     title: 'TODO',
     archived: false,
-    show_color: false
+    show_color: false,
+    modification_date: ''
   },
   {
     id: 1,
     title: 'LIST',
     archived: false,
-    show_color: false
+    show_color: false,
+    modification_date: ''
   }];
   const action = {
     type: 'CHANGE_COLOR_LIST_TODO',
     payload: {
       id: 1,
-      color: 'blue'
+      color: 'blue',
+    modification_date: ''
     }
   }
 
@@ -97,14 +101,16 @@ const testChangeColorListTodo = () => {
     id: 0,
     title: 'TODO',
     archived: false,
-    show_color: false
+    show_color: false,
+    modification_date: ''
   },
   {
     id: 1,
     title: 'LIST',
     archived: false,
     show_color: false,
-    color: 'blue'
+    color: 'blue',
+    modification_date: ''
   }];
 
   deepFreeze(stateBefore);

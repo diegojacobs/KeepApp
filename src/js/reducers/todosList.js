@@ -13,14 +13,16 @@ const listTodo = (state = {}, action ) => {
 
         return {
           ...state,
-          title: action.payload.title
+          title: action.payload.title,
+          modification_date: action.payload.modification_date
         }
       }
     case 'CHANGE_COLOR_LIST_TODO':
       if (state.id === action.payload.id) {
         return {
           ...state,
-          color: action.payload.color
+          color: action.payload.color,
+          modification_date: action.payload.modification_date
         }
       }
     case 'ARCHIVE_LIST_TODO':
