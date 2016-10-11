@@ -1,6 +1,7 @@
 import { notes } from '../reducers/notes';
 import deepFreeze from 'deep-freeze';
 import expect from 'expect';
+import moment from 'moment';
 
 const testAddNote = () => {
   const stateBefore = [];
@@ -144,7 +145,6 @@ const testEditDescriptionNote = () => {
 }
 
 const testChangeColorNote = () => {
-  const date = new Date();
   const stateBefore = [{
     id: 0,
     title: 'Hacer el almuerzo',
@@ -152,7 +152,7 @@ const testChangeColorNote = () => {
     saved: false,
     archived: false,
     show_color: false,
-    creation_date: Date.now(),
+    creation_date: moment().format('LLL'),
     modification_date: ''
   },{
     id: 1,
@@ -161,7 +161,7 @@ const testChangeColorNote = () => {
     saved: false,
     archived: false,
     show_color: false,
-    creation_date: Date.now(),
+    creation_date: moment().format('LLL'),
     modification_date: ''
   }];
   const action = {
@@ -180,7 +180,7 @@ const testChangeColorNote = () => {
     saved: false,
     archived: false,
     show_color: false,
-    creation_date: Date.now(),
+    creation_date: moment().format('LLL'),
     modification_date: ''
   },{
     id: 1,
@@ -190,7 +190,7 @@ const testChangeColorNote = () => {
     archived: false,
     show_color: false,
     color: 'blue',
-    creation_date: Date.now(),
+    creation_date: moment().format('LLL'),
     modification_date: '2016/10/8'
   }];
 
@@ -202,7 +202,6 @@ const testChangeColorNote = () => {
   ).toEqual(stateAfter);
 }
 const testArchiveNote = () => {
-  const date = new Date();
   const stateBefore = [{
     id: 0,
     title: 'Hacer el almuerzo',
@@ -345,5 +344,5 @@ testArchiveNote();
 testShowColorNote();
 testDeleteNote();
 
-console.log("All notes tests passed!");
+console.log("Notes tests passed.");
 export {  };

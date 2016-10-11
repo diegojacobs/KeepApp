@@ -1,4 +1,6 @@
-import visibilityFilter from '../reducers/visibility';
+import visibilityFilter from '../reducers/visibilityFilter';
+import deepFreeze from 'deep-freeze';
+import expect from 'expect';
 
 const testSetVisibilityFilter = () => {
   const stateBefore = 'ALL';
@@ -20,5 +22,5 @@ const testSetVisibilityFilter = () => {
   ).toEqual(stateAfter);
 }
 
-testToggleTodo();
-console.log("All visibility filter tests passed!");
+testSetVisibilityFilter();
+console.log("Visibility filter tests passed.");

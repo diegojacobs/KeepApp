@@ -10,13 +10,14 @@ import {
   addTodoList, saveTodos, editTodoList, changeColorTodoList, archiveTodoList, deleteListTodo,
   setSearch
 } from './actions/index';
-
+import { ActionCreators } from 'redux-undo';
 import reducer from './reducers'
 import { colors } from './containers/colors';
 const { Component } = React;
 import {} from './e2e/todos';
 import {} from './e2e/notes';
 import {} from './e2e/todosList';
+import keydown from 'react-keydown';
 
 const loadState = () => {
   try{
@@ -57,7 +58,7 @@ class AddNotes extends Component {
                   if (!this.refs.note_title.value .trim()) {
                     return
                   }
-                  if (!this.refs.note_content.value.trim()) {
+                  if (!this.refs.note_description.value.trim()) {
                     return
                   }
                   store.dispatch(addNote(this.refs.note_title.value, this.refs.note_description.value));
@@ -111,7 +112,6 @@ class AddTodosLists extends Component {
               if (e.key === 'Enter') {
                 store.dispatch(addTodoList(e.target.value, getTodosInList(getUnArchived(todos), listTodo).map(t => t.id)));
                 todos.map(t => { store.dispatch(saveTodos(t.id)); });
-                this.refs.color_list.style.backgroundColor = '';
                 this.refs.todo_title.value = '';
               }
             }
@@ -179,21 +179,21 @@ class VisibleNotes extends Component {
                 />
                 <textArea 
                   class={ 'title-input' }
-  				        ref = { 'color_list' }
-                  value = { note.content }
+  				        ref = { 'edit_note_description' }
+                  value = { note.description }
                   onChange={
                       (e) => { 
                         store.dispatch(editNoteDescription(note.id, e.target.value));
                       }
                     }/>
                 <div>
-                  <div style={{float: "right", width: "24%"}} class = { 'color-container' }>
+                  <div style={{float: "right", width: "19%"}} class = { 'color-container' }>
                    <ColorContainer
                      note = { note }
                      current = { 'NOTE' } >
                    </ColorContainer>
                   </div>
-                  <div style={{backgroundColor: note.color, float: "left", width: "75%"}}>
+                  <div style={{backgroundColor: note.color, float: "left", width: "80%"}}>
                     <button
                       class={ 'btn blue size' }
                       onClick={
@@ -269,13 +269,13 @@ class VisibleTodoList extends Component {
                 class= { 'edit-div' }
               >
                 <div>
-                  <div style={{float: "right", width: "24%"}} class = { 'color-container' }>
+                  <div style={{float: "right", width: "19%"}} class = { 'color-container' }>
                    <ColorContainer
                    listTodo = { list }
                    >
                    </ColorContainer>
                   </div>
-                  <div style={{backgroundColor: list.color, float: "left", width: "75%"}}>
+                  <div style={{backgroundColor: list.color, float: "left", width: "80%"}}>
                     <button
                       class={ 'btn blue size' }
                       onClick={
@@ -537,51 +537,67 @@ class Search extends Component {
 
 class KeepApp extends Component {
 
-  render() {
+  @keydown('ctrl+z' )
+  undo() {
+    store.dispatch(ActionCreators.undo());
+  }
 
-  let { todos, todosList, notes, visibilityApp } = this.props;
-  let visibletodosList = todosList.filter(l => l.archived === false);
-  let visibleNotes = notes.filter(l => l.archived === false);
-  return (
-    <div class="main-container">
-      <Search/>
-      <div class="add-objects">
-        <AddTodosLists
+  @keydown('ctrl+y' )
+  redo() {
+    store.dispatch(ActionCreators.redo());
+  }
+
+  render() {
+    let { todos, todosList, notes, visibilityApp } = this.props;
+    todos = todos.present;
+    notes = notes.present;
+    todosList = todosList.present;
+    visibilityApp = visibilityApp.present;
+
+    let visibletodosList = todosList.filter(l => l.archived === false);
+    let visibleNotes = notes.filter(l => l.archived === false);
+
+    return (
+      <div class="main-container">
+        <Search/>
+        <div class="add-objects">
+          <AddTodosLists
+            todos = { todos }
+            listTodo = { visibletodosList }
+            visibilityApp = { visibilityApp }>
+          </AddTodosLists>
+          <AddNotes
+           notes = { notes }
+           visibilityApp = { visibilityApp }> 
+          </AddNotes>
+        </div>
+        <VisibleTodoList
+          todosList = { visibletodosList }
           todos = { todos }
-          listTodo = { visibletodosList }
           visibilityApp = { visibilityApp }>
-        </AddTodosLists>
-        <AddNotes
-         notes = { notes }
-         visibilityApp = { visibilityApp }> 
-        </AddNotes>
-      </div>
-      <VisibleTodoList
-        todosList = { visibletodosList }
-        todos = { todos }
-        visibilityApp = { visibilityApp }>
-      </VisibleTodoList>
-      <VisibleNotes
-        notes = { visibleNotes }
-        visibilityApp = { visibilityApp }>
-      </VisibleNotes>
-      <FilterLink
-        visibilityFilter="SHOW_ALL"
-        currentVisibilityFilter = { visibilityApp }>
-        SHOW ALL
-      </FilterLink> 
+        </VisibleTodoList>
+        <VisibleNotes
+          notes = { visibleNotes }
+          visibilityApp = { visibilityApp }>
+        </VisibleNotes>
         <FilterLink
-        visibilityFilter="SHOW_TODOS"
-        currentVisibilityFilter = { visibilityApp }>
-        SHOW TODOS LISTS
-      </FilterLink> 
-      <FilterLink
-        visibilityFilter="SHOW_NOTES"
-        currentVisibilityFilter = { visibilityApp }>
-        SHOW NOTES
-      </FilterLink>  
-    </div>
-  );
+          visibilityFilter="SHOW_ALL"
+          currentVisibilityFilter = { visibilityApp }>
+          SHOW ALL
+        </FilterLink> 
+          <FilterLink
+          visibilityFilter="SHOW_TODOS"
+          currentVisibilityFilter = { visibilityApp }>
+          SHOW TODOS LISTS
+        </FilterLink> 
+        <FilterLink
+          visibilityFilter="SHOW_NOTES"
+          currentVisibilityFilter = { visibilityApp }>
+          SHOW NOTES
+        </FilterLink>  
+
+      </div>
+    );
   }
 }
 

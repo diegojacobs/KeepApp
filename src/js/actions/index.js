@@ -50,7 +50,7 @@ export const addNote = (title, description) => ({
 	payload: {
 	  id: v4(),
 	  title: title,
-	  content: description,
+	  description: description,
 	  saved: true,
 	  creation_date: moment().format('LLL'),
 	  modification_date: moment().format('LLL')
@@ -70,7 +70,7 @@ export const editNoteDescription = (id, description) => ({
 	type: 'EDIT_NOTE_DESCRIPTION',
   payload: {
     id: id,
-    content: description,
+    description: description,
     modification_date: moment().format('LLL')
   }
 })

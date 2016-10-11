@@ -253,5 +253,5 @@ testShowColor();
 testVisibilityFilter();
 
 
-console.log("TodosList tests passed!");
+console.log("TodosList tests passed.");
 export {  };

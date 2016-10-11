@@ -258,5 +258,5 @@ testSaveTodo();
 testEditTodo();
 testArchiveTodo();
 testDeleteTodo();
-console.log("All todo tests passed!");
+console.log("Todos tests passed.");
 export {  };

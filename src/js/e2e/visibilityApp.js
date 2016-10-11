@@ -243,5 +243,5 @@ testSaveTodo();
 testEditTodo();
 testArchiveTodo();
 testDeleteTodo();
-console.log("All todo tests passed!");
+console.log("KeepApp filters tests passed.");
 export {  };
